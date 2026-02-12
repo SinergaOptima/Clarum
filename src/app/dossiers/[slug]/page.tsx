@@ -33,7 +33,7 @@ export default async function DossierDetailPage({
           title="Dossier not found"
           message="Check the dossier list for available entries."
           action={
-            <Link className="text-accent hover:underline" href="/dossiers">
+            <Link className="link-accent hover:underline" href="/dossiers">
               Back to dossiers
             </Link>
           }

@@ -90,7 +90,7 @@ export default async function HomePage() {
               "VC & PE Diligence",
             ];
             return (
-              <div className="trust-strip" role="marquee" aria-label={`Industries served: ${industries.join(", ")}`}>
+              <div className="trust-strip" aria-label={`Industries served: ${industries.join(", ")}`}>
                 <div className="trust-strip-track">
                   {industries.map((item) => (
                     <span key={item}>{item}</span>

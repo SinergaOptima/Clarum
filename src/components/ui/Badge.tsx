@@ -7,9 +7,9 @@ type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
 
 const variants = {
   neutral: "bg-border/40 text-fg border-border/60",
-  good: "bg-good/15 text-good/90 border-good/25",
-  warn: "bg-warn/15 text-warn/90 border-warn/25",
-  danger: "bg-danger/15 text-danger/90 border-danger/25",
+  good: "bg-good/20 text-fg border-good/40",
+  warn: "bg-warn/20 text-fg border-warn/40",
+  danger: "bg-danger/20 text-fg border-danger/40",
 };
 
 export function Badge({ className, variant = "neutral", ...props }: BadgeProps) {

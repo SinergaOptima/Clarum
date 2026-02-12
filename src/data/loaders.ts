@@ -102,8 +102,13 @@ const domainLabels: Record<string, { name: string; summary: string }> = {
 };
 
 const indicatorNameOverrides: Record<string, string> = {
+  "IND-A1-REG-001": "Regulatory Quality Estimate",
+  "IND-A1-REG-002": "Rule of Law Estimate",
+  "IND-A4-INF-001": "LPI - Logistics Performance Index",
+  "IND-A6-LAB-001": "Human Capital Index",
   "IND-A8-ESG-001": "Corruption Perceptions Index",
   "IND-A8-ESG-002": "Environmental Performance Index",
+  "IND-A8-ESG-004": "Control of Corruption",
 };
 
 const confidenceScoreMap: Record<string, number> = {

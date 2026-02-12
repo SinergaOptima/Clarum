@@ -57,7 +57,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className="brand-mark-bar" aria-hidden="true" />
             </Link>
           </div>
-          <nav className="relative hidden items-center gap-5 text-xs tracking-[0.25em] text-fg/80 uppercase md:flex">
+          <nav className="relative hidden items-center gap-5 text-xs tracking-[0.16em] text-fg/80 uppercase md:flex">
             {navLinks.map((link) => {
               const isActive = pathname === link.href || pathname.startsWith(`${link.href}/`);
               return (
@@ -89,7 +89,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <ThemeToggle />
             <button
               type="button"
-              className="rounded-lg border border-border px-3 py-2 text-xs tracking-[0.2em] uppercase shadow-flush md:hidden"
+              className="rounded-lg border border-border px-3 py-2 text-xs tracking-[0.12em] uppercase shadow-flush md:hidden"
               aria-expanded={isMobileMenuOpen}
               aria-controls={mobileNavId}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
@@ -120,7 +120,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 return (
                   <Link
                     key={link.href}
-                    className={`hover:text-fg ${isActive ? "text-accent font-medium" : ""}`}
+                    className={`hover:text-fg ${isActive ? "link-accent font-medium" : ""}`}
                     href={link.href}
                     onClick={closeMobileMenu}
                   >

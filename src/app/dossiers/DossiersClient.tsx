@@ -42,7 +42,12 @@ export function DossiersClient({ items }: { items: DossierListItem[] }) {
           </p>
           <div className="mt-5 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
             <div className="stack-sm">
-              <SearchInput value={query} onChange={setQuery} placeholder="Search dossiers" />
+              <SearchInput
+                value={query}
+                onChange={setQuery}
+                placeholder="Search dossiers"
+                ariaLabel="Search dossiers"
+              />
               <div className="text-xs uppercase tracking-[0.2em] text-muted">
                 {resultLabel} shown - {filteredLabel}
               </div>
@@ -103,12 +108,12 @@ export function DossiersClient({ items }: { items: DossierListItem[] }) {
       </section>
 
       <div className="rounded-xl border border-border/90 bg-card px-5 py-4 shadow-flush">
-        <div className="text-[0.68rem] uppercase tracking-[0.14em] text-muted">Reading dossier cards</div>
+        <div className="text-xs uppercase tracking-[0.1em] text-muted">Reading dossier cards</div>
         <div className="mt-3 grid gap-4 sm:grid-cols-2">
           <div>
             <div className="text-xs font-medium text-fg/90">Confidence — evidence-backed reliability</div>
             <div className="mt-2 h-2 rounded-full" style={{ background: "linear-gradient(to right, rgb(174 74 76), rgb(186 116 58), rgb(34 132 98))" }} />
-            <div className="mt-1 flex justify-between text-[0.65rem] text-muted">
+            <div className="mt-1 flex justify-between text-xs text-muted">
               <span>Low</span>
               <span>Medium</span>
               <span>High</span>
@@ -117,7 +122,7 @@ export function DossiersClient({ items }: { items: DossierListItem[] }) {
           <div>
             <div className="text-xs font-medium text-fg/90">Completeness — indicator coverage</div>
             <div className="mt-2 h-2 rounded-full" style={{ background: "linear-gradient(to right, rgb(174 74 76), rgb(186 116 58), rgb(42 138 148))" }} />
-            <div className="mt-1 flex justify-between text-[0.65rem] text-muted">
+            <div className="mt-1 flex justify-between text-xs text-muted">
               <span>Sparse</span>
               <span>Partial</span>
               <span>Full</span>

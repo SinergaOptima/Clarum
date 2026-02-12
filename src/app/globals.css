@@ -9,6 +9,7 @@
   --card: 248 246 242;
   --border: 205 200 192;
   --accent: 24 64 118;
+  --link: 24 64 118;
   --accent-2: 184 120 56;
   --accent-3: 42 138 148;
   --good: 34 132 98;
@@ -50,6 +51,7 @@
   --card: 34 38 46;
   --border: 52 58 68;
   --accent: 82 140 206;
+  --link: 98 162 236;
   --accent-2: 214 160 96;
   --accent-3: 72 188 198;
   --good: 64 182 138;
@@ -337,7 +339,7 @@ pre {
 
   gap: 0.5rem;
   font-size: 0.7rem;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgb(var(--muted));
 }
@@ -392,7 +394,7 @@ pre {
   font-size: 0.7rem;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.13em;
   color: rgb(var(--fg));
   opacity: 0.88;
   background: rgb(var(--card));
@@ -741,6 +743,10 @@ pre {
   text-decoration: none;
 }
 
+.link-accent {
+  color: rgb(var(--link));
+}
+
 .link-underline::after {
   content: "";
   position: absolute;
@@ -974,11 +980,11 @@ pre {
 
 @media (max-width: 640px) {
   .section-label {
-    letter-spacing: 0.2em;
+    letter-spacing: 0.16em;
   }
 
   .trust-strip span {
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
   }
 }
 
@@ -1069,5 +1075,85 @@ pre {
       radial-gradient(circle at 12% 12%, rgba(82, 140, 206, 0.06), transparent 55%),
       linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 40%),
       linear-gradient(135deg, rgba(214, 160, 96, 0.03), transparent 45%);
+  }
+}
+
+@keyframes theme-reveal-old {
+  from {
+    opacity: 1;
+    filter: saturate(1);
+  }
+  to {
+    opacity: 0;
+    filter: saturate(1.08);
+  }
+}
+
+@keyframes theme-reveal-new {
+  from {
+    clip-path: circle(0% at var(--theme-transition-x, 50vw) var(--theme-transition-y, 50vh));
+    filter: saturate(1.18) brightness(1.04);
+  }
+  to {
+    clip-path: circle(150% at var(--theme-transition-x, 50vw) var(--theme-transition-y, 50vh));
+    filter: saturate(1) brightness(1);
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 832ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(root) {
+  animation-name: theme-reveal-old;
+}
+
+::view-transition-new(root) {
+  animation-name: theme-reveal-new;
+}
+
+html.theme-transitioning,
+html.theme-transitioning body,
+html.theme-transitioning .theme-bg,
+html.theme-transitioning .surface-flush,
+html.theme-transitioning .surface-raised,
+html.theme-transitioning .surface-floating,
+html.theme-transitioning .card-surface,
+html.theme-transitioning .stat-strip,
+html.theme-transitioning .table-wrap,
+html.theme-transitioning .table-shell thead,
+html.theme-transitioning .input-field,
+html.theme-transitioning .badge,
+html.theme-transitioning .btn {
+  transition:
+    color 832ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 832ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 832ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 832ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 832ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+
+  html.theme-transitioning,
+  html.theme-transitioning body,
+  html.theme-transitioning .theme-bg,
+  html.theme-transitioning .surface-flush,
+  html.theme-transitioning .surface-raised,
+  html.theme-transitioning .surface-floating,
+  html.theme-transitioning .card-surface,
+  html.theme-transitioning .stat-strip,
+  html.theme-transitioning .table-wrap,
+  html.theme-transitioning .table-shell thead,
+  html.theme-transitioning .input-field,
+  html.theme-transitioning .badge,
+  html.theme-transitioning .btn {
+    transition: none;
   }
 }

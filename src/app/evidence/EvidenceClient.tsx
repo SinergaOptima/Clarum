@@ -39,7 +39,12 @@ export function EvidenceClient({ items }: { items: EvidenceListItem[] }) {
             Browse source notes and trace where they are used across dossiers.
           </p>
           <div className="mt-5 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
-            <SearchInput value={query} onChange={setQuery} placeholder="Search evidence" />
+            <SearchInput
+              value={query}
+              onChange={setQuery}
+              placeholder="Search evidence"
+              ariaLabel="Search evidence"
+            />
             <div className="flex items-stretch divide-x divide-border rounded-xl border border-border bg-card/80 shadow-soft text-center">
               <div className="flex-1 px-4 py-3">
                 <div className="text-xs uppercase tracking-[0.14em] text-muted">Total</div>

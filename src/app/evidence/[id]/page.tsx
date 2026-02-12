@@ -25,7 +25,7 @@ export default async function EvidenceDetailPage({ params }: { params: Promise<{
           title="Evidence not found"
           message="This evidence record doesn't exist or may have been removed."
           action={
-            <Link className="text-sm font-medium text-accent hover:underline" href="/evidence">
+            <Link className="link-accent text-sm font-medium hover:underline" href="/evidence">
               Back to evidence library
             </Link>
           }

@@ -45,8 +45,10 @@ export function CommandPalette({
   const [dossierItems, setDossierItems] = useState<DossierListItem[]>([]);
   const [evidenceItems, setEvidenceItems] = useState<EvidenceListItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listboxRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
   const deferredQuery = useDeferredValue(query);
   const listboxId = useId();
 
@@ -69,8 +71,13 @@ export function CommandPalette({
   useEffect(() => {
     if (open) {
       setQuery("");
+      previousFocusRef.current =
+        document.activeElement instanceof HTMLElement ? document.activeElement : null;
       requestAnimationFrame(() => inputRef.current?.focus());
     }
+    return () => {
+      previousFocusRef.current?.focus();
+    };
   }, [open]);
 
   useEffect(() => {
@@ -80,6 +87,44 @@ export function CommandPalette({
     return () => {
       document.body.style.overflow = previousOverflow;
     };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    function trapFocus(event: KeyboardEvent) {
+      if (event.key !== "Tab") return;
+      const root = dialogRef.current;
+      if (!root) return;
+
+      const focusable = root.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey) {
+        if (active === first || !root.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+        return;
+      }
+
+      if (active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", trapFocus);
+    return () => document.removeEventListener("keydown", trapFocus);
   }, [open]);
 
   useEffect(() => {
@@ -273,20 +318,22 @@ export function CommandPalette({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       <button
         type="button"
-        className="absolute inset-0 bg-[rgba(18,22,30,0.34)] backdrop-blur-md"
+        className="absolute inset-0 bg-bg/85 backdrop-blur-[6px]"
         aria-label="Close command palette"
         onClick={() => onOpenChange(false)}
       />
       <div
-        className="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-border bg-bg shadow-hard"
+        ref={dialogRef}
+        className="surface-raised relative w-full max-w-2xl overflow-hidden rounded-2xl border border-border/90 bg-card shadow-floating"
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"
       >
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-accent via-accent3 to-accent2" />
         <div className="card-pad relative">
-          <div className="mb-4 flex items-start justify-between gap-3">
+          <div className="mb-4 flex items-start justify-between gap-3 rounded-xl border border-border/75 bg-bg/55 px-4 py-3 shadow-flush">
             <div>
-              <div className="text-[0.66rem] uppercase tracking-[0.24em] text-muted">
+              <div className="text-xs uppercase tracking-[0.14em] text-muted">
                 Command palette
               </div>
               <p className="mt-1 text-xs text-muted">
@@ -294,12 +341,12 @@ export function CommandPalette({
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <kbd className="rounded-md border border-border bg-card px-2 py-1 text-[0.66rem] uppercase tracking-[0.16em] text-muted">
+              <kbd className="rounded-md border border-border bg-bg px-2 py-1 text-xs uppercase tracking-[0.1em] text-muted">
                 Ctrl/Cmd K
               </kbd>
               <button
                 type="button"
-                className="rounded-md border border-border bg-card px-2.5 py-1 text-xs text-fg/70 transition hover:border-accent/60 hover:text-fg"
+                className="rounded-md border border-border bg-bg px-2.5 py-1 text-xs text-fg/70 transition hover:border-accent/60 hover:text-fg"
                 onClick={() => onOpenChange(false)}
               >
                 Close
@@ -307,14 +354,15 @@ export function CommandPalette({
             </div>
           </div>
 
-          <div className="card-pad-tight rounded-xl border border-border bg-card">
+          <div className="card-pad-tight rounded-xl border border-border/80 bg-bg shadow-inset">
             <Input
               ref={inputRef}
-              className="h-11 rounded-lg border-0 bg-transparent shadow-none"
+              className="h-11 rounded-lg border border-border/70 bg-bg/70 shadow-none"
               placeholder="Search commands, dossiers, or evidence..."
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               onKeyDown={onInputKeyDown}
+              aria-label="Search commands, dossiers, or evidence"
               role="combobox"
               aria-expanded={hasResults}
               aria-controls={listboxId}
@@ -323,14 +371,20 @@ export function CommandPalette({
             />
           </div>
 
-          <div ref={listboxRef} className="mt-3 max-h-[60vh] overflow-y-auto pr-1" role="listbox" id={listboxId} aria-label="Search results">
+          <div
+            ref={listboxRef}
+            className="mt-3 max-h-[60vh] overflow-y-auto rounded-xl border border-border/75 bg-bg/45 p-3 pr-2"
+            role="listbox"
+            id={listboxId}
+            aria-label="Search results"
+          >
             {isLoading && (
-              <div className="card-pad-tight rounded-lg border border-dashed border-border text-sm text-muted">
+              <div className="card-pad-tight rounded-lg border border-dashed border-border bg-card text-sm text-muted">
                 Loading index...
               </div>
             )}
             {!isLoading && !hasResults && (
-              <div className="card-pad-tight rounded-lg border border-dashed border-border text-sm text-muted">
+              <div className="card-pad-tight rounded-lg border border-dashed border-border bg-card text-sm text-muted">
                 No matches yet.
               </div>
             )}
@@ -341,10 +395,10 @@ export function CommandPalette({
                     {section.items.length > 0 ? (
                       <>
                         <div className="mb-2 flex items-center justify-between px-1">
-                          <div className="text-[0.66rem] uppercase tracking-[0.22em] text-muted">
+                          <div className="text-xs uppercase tracking-[0.14em] text-muted">
                             {section.title}
                           </div>
-                          <div className="rounded-full border border-border bg-card px-2 py-0.5 text-[0.66rem] text-muted">
+                          <div className="rounded-full border border-border bg-bg px-2 py-0.5 text-xs text-muted">
                             {section.items.length}
                           </div>
                         </div>
@@ -358,18 +412,26 @@ export function CommandPalette({
                                 id={item.id}
                                 data-item-id={item.id}
                                 aria-selected={isActive}
-                                className={`group flex w-full cursor-pointer items-center justify-between rounded-lg border px-3 py-2.5 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                                className={`group relative flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border px-3 py-2.5 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                                   isActive
-                                    ? "border-accent/40 bg-accent/12 ring-1 ring-accent/20"
-                                    : "border-border/70 bg-card hover:border-accent/30 hover:bg-accent/8"
+                                    ? "border-border/75 bg-accent/10 shadow-[inset_0_0_0_1px_rgba(var(--accent),0.14)]"
+                                    : "border-border/75 bg-card hover:border-accent/30 hover:bg-accent/8"
                                 }`}
                                 onMouseEnter={() => setActiveCommandId(item.id)}
                                 onClick={() => runCommand(item.action)}
                               >
+                                {isActive && (
+                                  <span
+                                    aria-hidden="true"
+                                    className="absolute bottom-2 left-0 top-2 w-1 rounded-r-full bg-gradient-to-b from-accent via-accent3 to-accent2"
+                                  />
+                                )}
                                 <span className="min-w-0">
                                   <span
                                     className={`block truncate text-sm font-medium transition ${
-                                      isActive ? "text-accent" : "text-fg group-hover:text-accent"
+                                      isActive
+                                        ? "link-accent"
+                                        : "text-fg group-hover:text-[rgb(var(--link))]"
                                     }`}
                                   >
                                     {item.title}
@@ -387,10 +449,10 @@ export function CommandPalette({
                                   ) : null}
                                 </span>
                                 <span
-                                  className={`rounded-full border px-2 py-0.5 text-[0.63rem] uppercase tracking-[0.14em] transition ${
+                                  className={`rounded-full border px-2 py-0.5 text-xs uppercase tracking-[0.1em] transition ${
                                     isActive
-                                      ? "border-accent/40 bg-accent/15 text-accent"
-                                      : "border-border bg-bg text-muted group-hover:border-accent/30 group-hover:text-accent"
+                                      ? "border-accent/40 bg-accent/15 link-accent"
+                                      : "border-border bg-bg text-muted group-hover:border-accent/30 group-hover:text-[rgb(var(--link))]"
                                   }`}
                                 >
                                   Enter

@@ -10,7 +10,8 @@
     "lint": "biome lint .",
     "format": "biome format . --write",
     "check": "biome check .",
-    "test": "vitest"
+    "test": "vitest",
+    "test:export-contract": "bun run sync-site-export && vitest run src/data/site_export_contract.test.ts"
   },
   "dependencies": {
     "adm-zip": "^0.5.16",

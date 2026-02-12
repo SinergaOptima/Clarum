@@ -1,6 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
+
+type DocumentWithViewTransition = Document & {
+  startViewTransition?: (updateCallback: () => void) => { finished: Promise<void> };
+};
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -12,18 +16,40 @@ export function ThemeToggle() {
     document.documentElement.setAttribute("data-theme", preferred);
   }, []);
 
-  const toggle = () => {
+  const toggle = (event: MouseEvent<HTMLButtonElement>) => {
+    const root = document.documentElement;
     const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("clarum-theme", next);
+
+    root.style.setProperty("--theme-transition-x", `${event.clientX}px`);
+    root.style.setProperty("--theme-transition-y", `${event.clientY}px`);
+
+    const applyTheme = () => {
+      setTheme(next);
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("clarum-theme", next);
+    };
+
+    const doc = document as DocumentWithViewTransition;
+    if (typeof doc.startViewTransition === "function") {
+      const transition = doc.startViewTransition(() => {
+        applyTheme();
+      });
+      transition.finished.catch(() => undefined);
+      return;
+    }
+
+    root.classList.add("theme-transitioning");
+    applyTheme();
+    window.setTimeout(() => {
+      root.classList.remove("theme-transitioning");
+    }, 832);
   };
 
   return (
     <button
       type="button"
       onClick={toggle}
-      className="rounded-lg border border-border px-2.5 py-1.5 text-xs tracking-[0.1em] uppercase text-fg/70 shadow-flush transition hover:border-accent/40 hover:text-fg"
+      className="rounded-lg border border-border px-2.5 py-1.5 text-xs tracking-[0.06em] uppercase text-fg/70 shadow-flush transition hover:border-accent/40 hover:text-fg"
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >
       {theme === "light" ? (

@@ -69,7 +69,7 @@ export function DossierCard({ dossier }: { dossier: DossierListItem }) {
           )}
         </div>
 
-        <span className="link-underline mt-auto inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+        <span className="link-underline link-accent mt-auto inline-flex items-center gap-1.5 text-sm font-medium">
           Open dossier
           <span
             className="inline-block transition-transform duration-200 group-hover:translate-x-1"

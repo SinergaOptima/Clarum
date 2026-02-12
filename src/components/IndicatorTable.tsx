@@ -44,7 +44,7 @@ export function IndicatorTable({ indicators }: { indicators: Indicator[] }) {
                       <span>{sourceLabel}</span>
                       {urls.length > 0 && (
                         <a
-                          className="text-xs font-medium text-accent hover:underline"
+                          className="text-xs font-medium link-accent hover:underline"
                           href={urls[0]}
                           target="_blank"
                           rel="noreferrer"
@@ -55,14 +55,14 @@ export function IndicatorTable({ indicators }: { indicators: Indicator[] }) {
                       )}
                       {urls.length > 1 && (
                         <details className="group text-xs">
-                          <summary className="cursor-pointer text-accent hover:underline">
+                          <summary className="cursor-pointer link-accent hover:underline">
                             +{urls.length - 1} more sources
                           </summary>
                           <div className="mt-2 space-y-1">
                             {urls.slice(1).map((url) => (
                               <a
                                 key={url}
-                                className="block text-xs text-accent hover:underline"
+                                className="block text-xs link-accent hover:underline"
                                 href={url}
                                 target="_blank"
                                 rel="noreferrer"
@@ -84,7 +84,7 @@ export function IndicatorTable({ indicators }: { indicators: Indicator[] }) {
                       "—"
                     ) : (
                       <details>
-                        <summary className="cursor-pointer text-accent hover:underline">
+                        <summary className="cursor-pointer link-accent hover:underline">
                           View {detailItems.length} detail{detailItems.length > 1 ? "s" : ""}
                         </summary>
                         <div className="mt-2 space-y-1">
@@ -132,7 +132,7 @@ export function IndicatorTable({ indicators }: { indicators: Indicator[] }) {
                   <>
                     {" · "}
                     <a
-                      className="text-accent hover:underline"
+                      className="link-accent hover:underline"
                       href={urls[0]}
                       target="_blank"
                       rel="noreferrer"
@@ -145,7 +145,7 @@ export function IndicatorTable({ indicators }: { indicators: Indicator[] }) {
               </div>
               {detailItems.length > 0 && (
                 <details className="mt-2 text-xs text-fg/80">
-                  <summary className="cursor-pointer text-accent hover:underline">
+                  <summary className="cursor-pointer link-accent hover:underline">
                     View {detailItems.length} detail{detailItems.length > 1 ? "s" : ""}
                   </summary>
                   <div className="mt-1 space-y-1 pl-2 border-l border-border">

@@ -34,7 +34,7 @@ export function EvidenceCard({ item }: { item: EvidenceListItem }) {
             </Badge>
           ))}
         </div>
-        <span className="link-underline inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+        <span className="link-underline link-accent inline-flex items-center gap-1.5 text-sm font-medium">
           Read evidence
           <span
             className="inline-block transition-transform duration-200 group-hover/ev:translate-x-1"

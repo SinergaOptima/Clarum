@@ -64,7 +64,7 @@ export function MemoArticle({ blocks }: { blocks: MarkdownBlock[] }) {
 /* ── Citation ref badge ── */
 function RefBadge({ id }: { id: string }) {
   return (
-    <span className="inline-flex items-center rounded-md bg-accent/8 px-1.5 py-0.5 text-[0.65rem] font-medium tracking-wide text-accent">
+    <span className="link-accent inline-flex items-center rounded-md bg-accent/8 px-1.5 py-0.5 text-[0.65rem] font-medium tracking-wide">
       {id}
     </span>
   );
@@ -93,7 +93,7 @@ function CitationList({ items }: { items: string[] }) {
               href={cite.url}
               target="_blank"
               rel="noreferrer"
-              className="group relative min-w-0 flex-1 truncate text-xs text-accent/80 transition-colors hover:text-accent"
+              className="group relative min-w-0 flex-1 truncate text-xs link-accent transition-colors hover:underline"
               title={cite.url}
             >
               <span className="truncate">{prettifyUrl(cite.url)}</span>

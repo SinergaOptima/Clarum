@@ -20,10 +20,6 @@ vi.mock("@/components/KeyValueRow", () => ({
   KeyValueRow: () => null,
 }));
 
-vi.mock("@/components/ScoreCard", () => ({
-  ScoreCard: () => null,
-}));
-
 vi.mock("@/components/SectionHeader", () => ({
   SectionHeader: () => null,
 }));
