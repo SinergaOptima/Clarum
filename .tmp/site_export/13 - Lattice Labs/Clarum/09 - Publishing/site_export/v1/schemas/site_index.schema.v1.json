@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Site Publish Manifest v1",
+  "type": "object",
+  "required": ["version", "generated_at", "publish_mode", "dossiers"],
+  "properties": {
+    "version": {"type": "string"},
+    "generated_at": {"type": "string"},
+    "publish_mode": {"type": "string"},
+    "dossiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "case_id",
+          "slug",
+          "title",
+          "country",
+          "sector",
+          "weight_profile",
+          "overlay",
+          "report_filename_original",
+          "report_filename_public",
+          "dossier_filename_original",
+          "dossier_filename_public",
+          "evidence_ids_used",
+          "indicator_ids_in_scope",
+          "completeness",
+          "scoring_status",
+          "confidence_caps"
+        ],
+        "properties": {
+          "case_id": {"type": "string"},
+          "slug": {"type": "string"},
+          "title": {"type": "string"},
+          "country": {"type": "string"},
+          "sector": {"type": "string"},
+          "weight_profile": {"type": "string"},
+          "overlay": {"type": "string"},
+          "report_filename_original": {"type": "string"},
+          "report_filename_public": {"type": "string"},
+          "dossier_filename_original": {"type": "string"},
+          "dossier_filename_public": {"type": "string"},
+          "evidence_ids_used": {"type": "array", "items": {"type": "string"}},
+          "indicator_ids_in_scope": {"type": "array", "items": {"type": "string"}},
+          "completeness": {
+            "type": "object",
+            "required": ["overall_pct", "profile_weighted_pct", "by_domain"],
+            "properties": {
+              "overall_pct": {"type": "number"},
+              "profile_weighted_pct": {"type": "number"},
+              "by_domain": {"type": "object"}
+            }
+          },
+          "scoring_status": {"type": "string"},
+          "confidence_caps": {
+            "type": "object",
+            "required": ["overall", "by_domain"],
+            "properties": {
+              "overall": {"type": ["string", "null"]},
+              "by_domain": {"type": ["object", "null"]}
+            }
+          }
+        }
+      }
+    }
+  }
+}

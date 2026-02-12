@@ -1,0 +1,608 @@
+{
+  "completeness": {
+    "by_domain": {
+      "A1": 33.33,
+      "A2": 100.0,
+      "A3": 100.0,
+      "A4": 100.0,
+      "A5": 40.0,
+      "A6": 20.0,
+      "A7": 0.0,
+      "A8": 0.0
+    },
+    "domain_breakdown": {
+      "A1": {
+        "complete": 2,
+        "in_scope": 2,
+        "pct": 100.0
+      },
+      "A2": {
+        "complete": 5,
+        "in_scope": 5,
+        "pct": 100.0
+      },
+      "A3": {
+        "complete": 0,
+        "in_scope": 0,
+        "pct": 0.0
+      },
+      "A4": {
+        "complete": 6,
+        "in_scope": 6,
+        "pct": 100.0
+      },
+      "A5": {
+        "complete": 1,
+        "in_scope": 1,
+        "pct": 100.0
+      },
+      "A6": {
+        "complete": 1,
+        "in_scope": 1,
+        "pct": 100.0
+      },
+      "A7": {
+        "complete": 0,
+        "in_scope": 0,
+        "pct": 0.0
+      },
+      "A8": {
+        "complete": 0,
+        "in_scope": 0,
+        "pct": 0.0
+      }
+    },
+    "overall_pct": 49.17,
+    "profile_weighted_pct": 100.0,
+    "weights_used": {
+      "A1": 0.13333333333333333,
+      "A2": 0.26666666666666666,
+      "A4": 0.26666666666666666,
+      "A5": 0.19999999999999998,
+      "A6": 0.13333333333333333
+    }
+  },
+  "confidence": {
+    "by_domain_cap": {
+      "A1": "low",
+      "A2": "high",
+      "A3": "high",
+      "A4": "high",
+      "A5": "low",
+      "A6": "low",
+      "A7": "low",
+      "A8": "low"
+    },
+    "overall_cap": "low",
+    "reasons": [
+      "A1 completeness < 50%",
+      "A5 completeness < 50%",
+      "A6 completeness < 50%",
+      "A7 completeness < 50%",
+      "A8 completeness < 50%"
+    ]
+  },
+  "fatal_missingness": {
+    "missing_indicator_ids": [],
+    "notes": [
+      "Provisional fatal list; sync from rubric note."
+    ],
+    "triggered": false
+  },
+  "flags": {
+    "triggered": [],
+    "watchlist": []
+  },
+  "indicators": {
+    "IND-A1-REG-001": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "World Bank WGI Regulatory Quality (estimate). Latest non-null 2023 value 0.318309366703033. WGI estimates typically range -2.5 to 2.5 (higher = stronger regulatory quality).",
+      "retrieved_date": "2026-02-10",
+      "source_institution": "World Bank (WGI)",
+      "unit": "Score (-2.5 to 2.5)",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/RQ.EST?format=json",
+      "value": 0.318309366703033
+    },
+    "IND-A1-REG-002": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "World Bank WGI Rule of Law (estimate). Latest non-null 2023 value 0.427084535360336. WGI estimates typically range -2.5 to 2.5 (higher = stronger rule of law).",
+      "retrieved_date": "2026-02-10",
+      "source_institution": "World Bank (WGI)",
+      "unit": "Score (-2.5 to 2.5)",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/RL.EST?format=json",
+      "value": 0.427084535360336
+    },
+    "IND-A1-REG-003": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "World Bank",
+      "unit": "Days / % of claim",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A1-REG-004": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "World Bank / OECD",
+      "unit": "Number of procedures / Days",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A1-REG-005": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "WEF",
+      "unit": "Score (1-7)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A1-REG-006": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "Fund for Peace / PRS Group",
+      "unit": "Index (0-100)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A2-GEO-001": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "World Bank API; indicator NE.TRD.GNFS.ZS; year 2024.",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "World Bank / WTO",
+      "unit": "Percentage",
+      "url": "https://api.worldbank.org/v2/country/HU/indicator/NE.TRD.GNFS.ZS?format=json",
+      "value": 46.5046
+    },
+    "IND-A2-GEO-002": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "No broad country-level sanctions targeting Hungary identified on EU/UN/US lists; standard designated-party screening still required. Decision support, not legal advice.",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "European Union; United Nations Security Council; US Treasury OFAC",
+      "unit": "ordinal_0_2",
+      "url": "https://www.sanctionsmap.eu/ | https://main.un.org/securitycouncil/content/un-sc-consolidated-list | https://ofac.treasury.gov/sanctions-list-service",
+      "value": 0
+    },
+    "IND-A2-GEO-003": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "EU dual-use regulation applies to exports from the EU; US EAR can apply to US-origin components and reexports. Moderate compliance burden. Decision support, not legal advice.",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "European Union / US BIS",
+      "unit": "ordinal_0_2",
+      "url": "https://eur-lex.europa.eu/eli/reg/2021/821/oj | https://www.bis.gov/regulations/ear",
+      "value": 1
+    },
+    "IND-A2-GEO-004": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "World Bank WGI PV.EST (Political Stability and Absence of Violence/Terrorism). Latest non-null 2023 value 0.731891810894012. Proxy mapping: conflict_intensity_score = clamp01((-PV + 2.5) / 5.0) * 10 = 3.54 (higher = higher conflict intensity risk).",
+      "retrieved_date": "2026-02-10",
+      "source_institution": "World Bank",
+      "unit": "Score (0-10)",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/PV.EST?format=json",
+      "value": 3.54
+    },
+    "IND-A2-GEO-005": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "Supplement No. 1 to 15 CFR Part 740 (eCFR) lists Hungary in Country Group A:1, A:2, A:3, A:4, A:5 and Country Group B; not listed in Country Groups D or E. Mapping: ordinal_0_2 where 0 = not in any D or E group, 1 = in D group(s) only, 2 = in E group(s). Decision support only; not legal advice.",
+      "retrieved_date": "2026-02-10",
+      "source_institution": "US BIS (eCFR)",
+      "unit": "ordinal_0_2",
+      "url": "https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-740",
+      "value": 0
+    },
+    "IND-A3-POL-001": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "OECD FDI Regulatory Restrictiveness Index (Total FDI Index, all types of restrictions); value 0.024 for 2023 from OECD Going Digital export.",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "OECD",
+      "unit": "Score (0-1, 0=open)",
+      "url": "https://goingdigital.oecd.org/en/indicator/74 | https://goingdigital.oecd.org/api/indicator/74/export?locale=en&s=%7B%22perspectives%22%3A%7B%22sector%22%3A%2243%22%2C%22stacked%22%3Atrue%2C%22symbols%22%3A%5B%5D%2C%22restype%22%3A%22V%22%7D%2C%22countries%22%3A%7B%22highlights%22%3A%5B%5D%2C%22highlightModeExclusive%22%3Afalse%7D%2C%22time%22%3A%7B%22timeseries%22%3Afalse%2C%22start%22%3A2018%2C%22end%22%3A2023%7D%7D&format=zip",
+      "value": 0.024
+    },
+    "IND-A3-POL-002": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "Tier-B (survey): WEF GCIHH via World Bank Data360. See metadata PDF for scale. Indicator series name: Gov't procurement of advanced tech products, 1-7 (best). Year 2017; indicator id WEF_GCIHH_EOSQ074.",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "WEF (Tier-B survey) / World Bank Data360",
+      "unit": "Score (1-7)",
+      "url": "https://data360.worldbank.org/en/dataset/WEF_GCIHH | https://data360files.worldbank.org/data360-data/datasetmetadata/WEF_GCIHH.pdf",
+      "value": 2.84
+    },
+    "IND-A3-POL-003": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "2025 Investment Climate Statement notes no requirement that investors purchase from local sources; EU rule of origin applies. Binary set to 0 (no LCR).",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "US Department of State",
+      "unit": "Binary / Severity Scale",
+      "url": "https://www.state.gov/reports/2025-investment-climate-statements/hungary",
+      "value": 0
+    },
+    "IND-A3-POL-004": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "OECD PMR economy-wide indicator values (2023-2024); proxy uses 'Quality and Scope of Public Ownership' for Hungary, year 2024.",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "OECD",
+      "unit": "Score/Index",
+      "url": "https://www.oecd.org/content/dam/oecd/en/topics/policy-sub-issues/product-market-regulation/OECD-PMR-Economy-wide-indicator-values_2023-2024.xlsx",
+      "value": 0.6842320561408997
+    },
+    "IND-A3-POL-005": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "Act LVII of 2018 establishes foreign investment screening and notification for specified strategic activities; binary set to 1 (yes).",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "National policy documents / UNCTAD",
+      "unit": "Binary (Yes/No)",
+      "url": "https://investmentpolicy.unctad.org/investment-laws/laws/533/hungary-act-lvii-of-2018-on-the-control-of-foreign-investments-detrimental-to-the-security-interests",
+      "value": 1
+    },
+    "IND-A4-INF-001": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "World Bank API; indicator LP.LPI.OVRL.XQ; year 2022.",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "World Bank",
+      "unit": "Score (1-5)",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/LP.LPI.OVRL.XQ?format=json",
+      "value": 3.2
+    },
+    "IND-A4-INF-002": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "World Bank API; indicator EG.ELC.LOSS.ZS (electric power transmission and distribution losses % of output) used as reliability proxy; year 2023.",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "World Bank",
+      "unit": "Percentage",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/EG.ELC.LOSS.ZS?format=json",
+      "value": 6.96581797721199
+    },
+    "IND-A4-INF-003": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "World Bank API; indicator EG.ELC.LOSS.ZS (electric power transmission and distribution losses % of output). 3-year volatility proxy uses CV = std/mean of latest values (2023=6.9658, 2022=7.7679, 2021=8.4496); mean=7.7278, std=0.6064, CV=0.0785. Proxy caveat: loss variability \u2260 industrial electricity price volatility.",
+      "retrieved_date": "2026-02-10",
+      "source_institution": "World Bank",
+      "unit": "CV (3y, ratio)",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/EG.ELC.LOSS.ZS?format=json",
+      "value": 0.0785
+    },
+    "IND-A4-INF-004": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "Tier-A proxy: Enterprise Surveys average time to clear exports through customs (IC.CUS.DURS.EX). Latest non-null value 2023 = 2.187804937 days. Proxy for port/dwell time efficiency; not a direct port dwell measure.",
+      "retrieved_date": "2026-02-10",
+      "source_institution": "World Bank",
+      "unit": "Days",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/IC.CUS.DURS.EX?format=json",
+      "value": 2.1878
+    },
+    "IND-A4-INF-005": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "World Bank API; indicator IT.NET.BBND.P2 (fixed broadband subscriptions per 100 people) used as industrial internet quality proxy; year 2023.",
+      "retrieved_date": "2026-02-09",
+      "source_institution": "World Bank",
+      "unit": "Per 100 people",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/IT.NET.BBND.P2?format=json",
+      "value": 36.7902
+    },
+    "IND-A4-INF-006": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "Tier-A proxy: Enterprise Surveys time required to obtain an operating license (IC.FRM.DURS). Latest non-null value 2023 = 32.47746277 days. Proxy for industrial land/operational setup friction; lower days implies better availability.",
+      "retrieved_date": "2026-02-10",
+      "source_institution": "World Bank",
+      "unit": "Score / Days",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/IC.FRM.DURS?format=json",
+      "value": 32.4775
+    },
+    "IND-A5-SUP-001": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "Proxy for export concentration: WITS TradeStats HH market concentration index (HH-MKT-CNCNTRTN-NDX), latest available year 2023. UI: https://wits.worldbank.org/CountryProfile/en/country/by-country/startyear/ltst/endyear/ltst/indicator/HH-MKT-CNCNTRTN-NDX",
+      "retrieved_date": "2026-02-10",
+      "source_institution": "WITS (World Bank)",
+      "unit": "Score (0-1)",
+      "url": "https://wits.worldbank.org/API/V1/SDMX/V21/datasource/tradestats-trade/reporter/HUN/year/2023/indicator/HH-MKT-CNCNTRTN-NDX?format=JSON",
+      "value": 0.086460992407
+    },
+    "IND-A5-SUP-002": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "World Bank API; indicator NV.IND.MANF.ZS (manufacturing value added % of GDP); year 2024.",
+      "retrieved_date": "2026-02-10",
+      "source_institution": "World Bank",
+      "unit": "Percentage",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/NV.IND.MANF.ZS?format=json",
+      "value": 15.8039940838573
+    },
+    "IND-A5-SUP-003": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "USGS / IEA",
+      "unit": "Percentage",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A5-SUP-004": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "ISO",
+      "unit": "Count / Ratio",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A5-SUP-005": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "S&P Global",
+      "unit": "Index (50=neutral)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A6-LAB-001": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "World Bank API; indicator HD.HCI.OVRL (Human Capital Index); year 2020.",
+      "retrieved_date": "2026-02-10",
+      "source_institution": "World Bank",
+      "unit": "Score (0-1)",
+      "url": "https://api.worldbank.org/v2/country/HUN/indicator/HD.HCI.OVRL?format=json",
+      "value": 0.683087289333344
+    },
+    "IND-A6-LAB-002": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "UNESCO / OECD",
+      "unit": "Percentage",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A6-LAB-003": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "Fraser Institute / Heritage",
+      "unit": "Score (0-100)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A6-LAB-004": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "Verisk / ACLED",
+      "unit": "Score",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A6-LAB-005": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "WEF / ManpowerGroup",
+      "unit": "Score (1-7)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A7-CAP-001": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "IMF",
+      "unit": "Percentage",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A7-CAP-002": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "Chinn-Ito",
+      "unit": "Score (-1.9 to 2.3)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A7-CAP-003": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "IMF / Central Bank",
+      "unit": "Percentage",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A7-CAP-004": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "S&P / Moody's / Fitch",
+      "unit": "Alphanumeric (AAA-D)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A7-CAP-005": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "Academic / BIS",
+      "unit": "Score",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A8-ESG-001": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "Transparency International",
+      "unit": "Score (0-100)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A8-ESG-002": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "Yale / Columbia",
+      "unit": "Score (0-100)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A8-ESG-003": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "Penn State / NGO",
+      "unit": "Score (0-100)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A8-ESG-004": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "World Bank",
+      "unit": "Score (-2.5 to 2.5)",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    },
+    "IND-A8-ESG-005": {
+      "confidence_cap": 1.0,
+      "evidence_tier": "A",
+      "notes": "",
+      "retrieved_date": "DATE(TODO)",
+      "source_institution": "Verisk / ACLED",
+      "unit": "Index",
+      "url": "TODO(URL)",
+      "value": "VALUE(TODO)"
+    }
+  },
+  "meta": {
+    "case": {
+      "case_id": "GD-HUN-EV-OEM-EXPORT-001",
+      "country": "Hungary",
+      "mode": "EXPORT",
+      "role": "OEM",
+      "sector": "EV"
+    },
+    "evidence_tier_summary": {
+      "A": 42,
+      "B": 0
+    },
+    "generated_at": "2026-02-10 22:28:02",
+    "methodology": {
+      "country_pack_version": "v1",
+      "indicator_catalog_version": "v1",
+      "lrf_version": "LRF-1",
+      "overlay_id": "Balanced",
+      "rubric_version": "LRF-1.1",
+      "weight_profile_id": "WP-EV-OEM-EXPORT-1.1"
+    },
+    "normalization": {
+      "comparator_set_id": "GLOBAL-GDP-10B+",
+      "method": "PERCENTILE-RANK"
+    },
+    "report_version": "v1"
+  },
+  "next_actions": [
+    "Implement scoring once MV-EF completeness >= 75% for key domains.",
+    "Sync fatal-missingness list automatically from rubric note."
+  ],
+  "scores": {
+    "composite": {
+      "reason": "scoring not computed in v1",
+      "value": null
+    },
+    "domains": {
+      "A1": {
+        "cap": "low",
+        "missing_pct": 66.67,
+        "reason": "insufficient data",
+        "value": null
+      },
+      "A2": {
+        "cap": "high",
+        "missing_pct": 0.0,
+        "reason": "scoring not computed in v1",
+        "value": null
+      },
+      "A3": {
+        "cap": "high",
+        "missing_pct": 0.0,
+        "reason": "scoring not computed in v1",
+        "value": null
+      },
+      "A4": {
+        "cap": "high",
+        "missing_pct": 0.0,
+        "reason": "scoring not computed in v1",
+        "value": null
+      },
+      "A5": {
+        "cap": "low",
+        "missing_pct": 60.0,
+        "reason": "insufficient data",
+        "value": null
+      },
+      "A6": {
+        "cap": "low",
+        "missing_pct": 80.0,
+        "reason": "insufficient data",
+        "value": null
+      },
+      "A7": {
+        "cap": "low",
+        "missing_pct": 100.0,
+        "reason": "insufficient data",
+        "value": null
+      },
+      "A8": {
+        "cap": "low",
+        "missing_pct": 100.0,
+        "reason": "insufficient data",
+        "value": null
+      }
+    }
+  },
+  "warnings": [
+    "Fatal-missingness list is provisional; sync from rubric in v1.1."
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Site Dossier Payload v1",
+  "type": "object",
+  "required": [
+    "meta",
+    "completeness",
+    "confidence",
+    "scores",
+    "flags",
+    "warnings",
+    "next_actions",
+    "indicators",
+    "evidence_refs"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["case_id", "slug", "title", "country", "sector", "weight_profile", "overlay"],
+      "properties": {
+        "case_id": {"type": "string"},
+        "slug": {"type": "string"},
+        "title": {"type": "string"},
+        "country": {"type": "string"},
+        "sector": {"type": "string"},
+        "weight_profile": {"type": "string"},
+        "overlay": {"type": "string"}
+      }
+    },
+    "completeness": {"type": "object"},
+    "confidence": {"type": "object"},
+    "scores": {"type": "object"},
+    "flags": {"type": "object"},
+    "warnings": {"type": "array"},
+    "next_actions": {"type": "array"},
+    "indicators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "domain",
+          "label",
+          "value",
+          "unit",
+          "year",
+          "source_institution",
+          "urls",
+          "notes",
+          "missing_value",
+          "missing_url",
+          "missing_date",
+          "is_complete_strict"
+        ],
+        "properties": {
+          "id": {"type": "string"},
+          "domain": {"type": "string"},
+          "label": {"type": ["string", "null"]},
+          "value": {},
+          "unit": {"type": ["string", "null"]},
+          "year": {"type": ["string", "number", "null"]},
+          "source_institution": {"type": ["string", "null"]},
+          "urls": {"type": "array", "items": {"type": "string"}},
+          "notes": {"type": ["string", "null"]},
+          "missing_value": {"type": "boolean"},
+          "missing_url": {"type": "boolean"},
+          "missing_date": {"type": "boolean"},
+          "is_complete_strict": {"type": "boolean"}
+        }
+      }
+    },
+    "evidence_refs": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,266 @@
+[
+  {
+    "added_at": null,
+    "id": "EV-2026-001",
+    "publication_date": "2026 (last updated)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Political Stability and Absence of Violence/Terrorism: Estimate (PV.EST)",
+    "urls": [
+      "https://api.worldbank.org/v2/indicator/PV.EST?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-002",
+    "publication_date": "2023",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Political Stability and Absence of Violence/Terrorism: Estimate - Hungary",
+    "urls": [
+      "https://api.worldbank.org/v2/country/HUN/indicator/PV.EST?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-004",
+    "publication_date": "2023",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Political Stability and Absence of Violence/Terrorism: Estimate - Malaysia",
+    "urls": [
+      "https://api.worldbank.org/v2/country/MYS/indicator/PV.EST?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-007",
+    "publication_date": "2026 (last updated)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Average time to clear exports through customs (IC.CUS.DURS.EX)",
+    "urls": [
+      "https://api.worldbank.org/v2/indicator/IC.CUS.DURS.EX?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-008",
+    "publication_date": "2023",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Average time to clear exports through customs - Hungary",
+    "urls": [
+      "https://api.worldbank.org/v2/country/HUN/indicator/IC.CUS.DURS.EX?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-010",
+    "publication_date": "2024",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Average time to clear exports through customs - Malaysia",
+    "urls": [
+      "https://api.worldbank.org/v2/country/MYS/indicator/IC.CUS.DURS.EX?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-011",
+    "publication_date": "2026 (last updated)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Time required to obtain an operating license (IC.FRM.DURS)",
+    "urls": [
+      "https://api.worldbank.org/v2/indicator/IC.FRM.DURS?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-012",
+    "publication_date": "2023",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Time required to obtain an operating license - Hungary",
+    "urls": [
+      "https://api.worldbank.org/v2/country/HUN/indicator/IC.FRM.DURS?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-014",
+    "publication_date": "2024",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Time required to obtain an operating license - Malaysia",
+    "urls": [
+      "https://api.worldbank.org/v2/country/MYS/indicator/IC.FRM.DURS?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-016",
+    "publication_date": "2026 (last updated)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Electric power transmission and distribution losses (% of output) (EG.ELC.LOSS.ZS)",
+    "urls": [
+      "https://api.worldbank.org/v2/indicator/EG.ELC.LOSS.ZS?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-017",
+    "publication_date": "2023",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Electric power transmission and distribution losses (% of output) - Hungary",
+    "urls": [
+      "https://api.worldbank.org/v2/country/HUN/indicator/EG.ELC.LOSS.ZS?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-019",
+    "publication_date": "2022",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Electric power transmission and distribution losses (% of output) - Malaysia",
+    "urls": [
+      "https://api.worldbank.org/v2/country/MYS/indicator/EG.ELC.LOSS.ZS?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-020",
+    "publication_date": "2026",
+    "source_type": "Computation",
+    "tier": "A",
+    "title": "Derived volatility proxy from EG.ELC.LOSS.ZS - Hungary",
+    "urls": [
+      "https://api.worldbank.org/v2/country/HUN/indicator/EG.ELC.LOSS.ZS?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-022",
+    "publication_date": "2026",
+    "source_type": "Computation",
+    "tier": "A",
+    "title": "Derived volatility proxy from EG.ELC.LOSS.ZS - Malaysia",
+    "urls": [
+      "https://api.worldbank.org/v2/country/MYS/indicator/EG.ELC.LOSS.ZS?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-023",
+    "publication_date": "2026",
+    "source_type": "Computation",
+    "tier": "A",
+    "title": "Volatility proxy method for IND-A4-INF-003",
+    "urls": [
+      "https://api.worldbank.org/v2/indicator/EG.ELC.LOSS.ZS?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-024",
+    "publication_date": "2025",
+    "source_type": "Report",
+    "tier": "A",
+    "title": "Worldwide Governance Indicators",
+    "urls": [
+      "https://www.worldbank.org/en/publication/worldwide-governance-indicators"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-025",
+    "publication_date": "n.d. (metadata accessed 2026-02-10)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Regulatory Quality: Estimate (RQ.EST) metadata",
+    "urls": [
+      "https://api.worldbank.org/v2/indicator/RQ.EST?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-026",
+    "publication_date": "n.d. (metadata accessed 2026-02-10)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Rule of Law: Estimate (RL.EST) metadata",
+    "urls": [
+      "https://api.worldbank.org/v2/indicator/RL.EST?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-027",
+    "publication_date": "n.d. (page accessed 2026-02-10)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Regulatory Quality: Estimate (RQ.EST)",
+    "urls": [
+      "https://data.worldbank.org/indicator/RQ.EST"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-028",
+    "publication_date": "n.d. (page accessed 2026-02-10)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Rule of Law: Estimate (RL.EST)",
+    "urls": [
+      "https://data.worldbank.org/indicator/RL.EST"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-029",
+    "publication_date": "n.d. (metadata accessed 2026-02-10)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Manufacturing, value added (% of GDP) metadata",
+    "urls": [
+      "https://api.worldbank.org/v2/indicator/NV.IND.MANF.ZS?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-030",
+    "publication_date": "n.d. (page accessed 2026-02-10)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Manufacturing, value added (% of GDP)",
+    "urls": [
+      "https://data.worldbank.org/indicator/NV.IND.MANF.ZS"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-031",
+    "publication_date": "n.d. (metadata accessed 2026-02-10)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Human Capital Index (HCI) metadata",
+    "urls": [
+      "https://api.worldbank.org/v2/indicator/HD.HCI.OVRL?format=json"
+    ]
+  },
+  {
+    "added_at": null,
+    "id": "EV-2026-032",
+    "publication_date": "n.d. (page accessed 2026-02-10)",
+    "source_type": "Dataset",
+    "tier": "A",
+    "title": "Human Capital Index (HCI) (scale 0-1)",
+    "urls": [
+      "https://data.worldbank.org/indicator/HD.HCI.OVRL"
+    ]
+  }
+]

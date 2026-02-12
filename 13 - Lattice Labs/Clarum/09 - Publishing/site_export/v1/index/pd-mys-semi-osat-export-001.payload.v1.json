@@ -1,0 +1,850 @@
+{
+  "completeness": {
+    "by_domain": {
+      "A1": 33.33,
+      "A2": 100.0,
+      "A3": 0.0,
+      "A4": 100.0,
+      "A5": 40.0,
+      "A6": 20.0,
+      "A7": 0.0,
+      "A8": 0.0
+    },
+    "domain_breakdown": {
+      "A1": {
+        "complete": 2,
+        "in_scope": 2,
+        "pct": 100.0
+      },
+      "A2": {
+        "complete": 5,
+        "in_scope": 5,
+        "pct": 100.0
+      },
+      "A3": {
+        "complete": 0,
+        "in_scope": 0,
+        "pct": 0.0
+      },
+      "A4": {
+        "complete": 6,
+        "in_scope": 6,
+        "pct": 100.0
+      },
+      "A5": {
+        "complete": 1,
+        "in_scope": 1,
+        "pct": 100.0
+      },
+      "A6": {
+        "complete": 1,
+        "in_scope": 1,
+        "pct": 100.0
+      },
+      "A7": {
+        "complete": 0,
+        "in_scope": 0,
+        "pct": 0.0
+      },
+      "A8": {
+        "complete": 0,
+        "in_scope": 0,
+        "pct": 0.0
+      }
+    },
+    "overall_pct": 36.67,
+    "profile_weighted_pct": 100.0,
+    "weights_used": {
+      "A1": 0.13333333333333333,
+      "A2": 0.26666666666666666,
+      "A4": 0.26666666666666666,
+      "A5": 0.13333333333333333,
+      "A6": 0.19999999999999998
+    }
+  },
+  "confidence": {
+    "by_domain_cap": {
+      "A1": "low",
+      "A2": "high",
+      "A3": "low",
+      "A4": "high",
+      "A5": "low",
+      "A6": "low",
+      "A7": "low",
+      "A8": "low"
+    },
+    "overall_cap": "low",
+    "reasons": [
+      "A1 completeness < 50%",
+      "A3 completeness < 50%",
+      "A5 completeness < 50%",
+      "A6 completeness < 50%",
+      "A7 completeness < 50%",
+      "A8 completeness < 50%"
+    ]
+  },
+  "evidence_refs": [
+    "EV-2026-001",
+    "EV-2026-004",
+    "EV-2026-007",
+    "EV-2026-010",
+    "EV-2026-011",
+    "EV-2026-014",
+    "EV-2026-016",
+    "EV-2026-019",
+    "EV-2026-022",
+    "EV-2026-023",
+    "EV-2026-024",
+    "EV-2026-025",
+    "EV-2026-026",
+    "EV-2026-027",
+    "EV-2026-028",
+    "EV-2026-029",
+    "EV-2026-030",
+    "EV-2026-031",
+    "EV-2026-032"
+  ],
+  "flags": {
+    "triggered": [],
+    "watchlist": []
+  },
+  "indicators": [
+    {
+      "domain": "A1",
+      "id": "IND-A1-REG-001",
+      "is_complete_strict": true,
+      "label": "Regulatory Quality Estimate",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "World Bank WGI Regulatory Quality (estimate). Latest non-null 2023 value 0.660894274711609. WGI estimates typically range -2.5 to 2.5 (higher = stronger regulatory quality).",
+      "source_institution": "World Bank (WGI)",
+      "unit": "Score (-2.5 to 2.5)",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/RQ.EST?format=json"
+      ],
+      "value": 0.660894274711609,
+      "year": null
+    },
+    {
+      "domain": "A1",
+      "id": "IND-A1-REG-002",
+      "is_complete_strict": true,
+      "label": "Rule of Law Estimate",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "World Bank WGI Rule of Law (estimate). Latest non-null 2023 value 0.571915447711945. WGI estimates typically range -2.5 to 2.5 (higher = stronger rule of law).",
+      "source_institution": "World Bank (WGI)",
+      "unit": "Score (-2.5 to 2.5)",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/RL.EST?format=json"
+      ],
+      "value": 0.571915447711945,
+      "year": null
+    },
+    {
+      "domain": "A1",
+      "id": "IND-A1-REG-003",
+      "is_complete_strict": false,
+      "label": "Contract Enforcement Efficiency",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "World Bank",
+      "unit": "Days / % of claim",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A1",
+      "id": "IND-A1-REG-004",
+      "is_complete_strict": false,
+      "label": "Permitting Complexity Index",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "World Bank / OECD",
+      "unit": "Number of procedures / Days",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A1",
+      "id": "IND-A1-REG-005",
+      "is_complete_strict": false,
+      "label": "Regulatory Burden Perception",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "WEF",
+      "unit": "Score (1-7)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A1",
+      "id": "IND-A1-REG-006",
+      "is_complete_strict": false,
+      "label": "Policy Instability Concern",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "Fund for Peace / PRS Group",
+      "unit": "Index (0-100)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A2",
+      "id": "IND-A2-GEO-001",
+      "is_complete_strict": true,
+      "label": "Trade Openness Index",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "World Bank API; indicator NE.TRD.GNFS.ZS; year 2024.",
+      "source_institution": "World Bank / WTO",
+      "unit": "Percentage",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MY/indicator/NE.TRD.GNFS.ZS?format=json"
+      ],
+      "value": 137.3626,
+      "year": null
+    },
+    {
+      "domain": "A2",
+      "id": "IND-A2-GEO-002",
+      "is_complete_strict": true,
+      "label": "Sanctions Alignment Risk",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "No broad country-level sanctions targeting Malaysia identified; compliance focuses on screening designated persons/entities under UN/UK/US lists. Decision support, not legal advice.",
+      "source_institution": "United Nations Security Council; UK FCDO; US Treasury OFAC",
+      "unit": "ordinal_0_2",
+      "urls": [
+        "https://main.un.org/securitycouncil/content/un-sc-consolidated-list",
+        "https://www.gov.uk/government/publications/the-uk-sanctions-list",
+        "https://ofac.treasury.gov/sanctions-list-service"
+      ],
+      "value": 0,
+      "year": null
+    },
+    {
+      "domain": "A2",
+      "id": "IND-A2-GEO-003",
+      "is_complete_strict": true,
+      "label": "Geopolitical Alignment (Bloc)",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "OSAT handling of advanced semiconductors raises exposure to US EAR controls and licensing requirements; higher compliance burden for sensitive tech. Decision support, not legal advice.",
+      "source_institution": "US BIS",
+      "unit": "ordinal_0_2",
+      "urls": [
+        "https://www.bis.gov/regulations/ear",
+        "https://www.bis.gov/licensing/country-guidance"
+      ],
+      "value": 2,
+      "year": null
+    },
+    {
+      "domain": "A2",
+      "id": "IND-A2-GEO-004",
+      "is_complete_strict": true,
+      "label": "Conflict Intensity Index",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "World Bank WGI PV.EST (Political Stability and Absence of Violence/Terrorism). Latest non-null 2023 value 0.16851469874382. Proxy mapping: conflict_intensity_score = clamp01((-PV + 2.5) / 5.0) * 10 = 4.66 (higher = higher conflict intensity risk).",
+      "source_institution": "World Bank",
+      "unit": "Score (0-10)",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/PV.EST?format=json"
+      ],
+      "value": 4.66,
+      "year": null
+    },
+    {
+      "domain": "A2",
+      "id": "IND-A2-GEO-005",
+      "is_complete_strict": true,
+      "label": "High-Tech Export Restrictions",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "Supplement No. 1 to 15 CFR Part 740 (eCFR) lists Malaysia in Country Group B; not listed in Country Groups D or E. Mapping: ordinal_0_2 where 0 = not in any D or E group, 1 = in D group(s) only, 2 = in E group(s). Decision support only; not legal advice.",
+      "source_institution": "US BIS (eCFR)",
+      "unit": "ordinal_0_2",
+      "urls": [
+        "https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-740"
+      ],
+      "value": 0,
+      "year": null
+    },
+    {
+      "domain": "A3",
+      "id": "IND-A3-POL-001",
+      "is_complete_strict": false,
+      "label": "FDI Restrictiveness Index",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "OECD",
+      "unit": "Score (0-1, 0=open)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A3",
+      "id": "IND-A3-POL-002",
+      "is_complete_strict": false,
+      "label": "Gov't Support for Tech",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "WEF / ITU",
+      "unit": "Score (1-7)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A3",
+      "id": "IND-A3-POL-003",
+      "is_complete_strict": false,
+      "label": "Local Content Requirements",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "WTO / USTR",
+      "unit": "Binary / Severity Scale",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A3",
+      "id": "IND-A3-POL-004",
+      "is_complete_strict": false,
+      "label": "SOE Prevalence",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "OECD / IMF",
+      "unit": "Score/Index",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A3",
+      "id": "IND-A3-POL-005",
+      "is_complete_strict": false,
+      "label": "Strategic Sector Designation",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "National policy documents",
+      "unit": "Binary (Yes/No)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A4",
+      "id": "IND-A4-INF-001",
+      "is_complete_strict": true,
+      "label": "LPI - Logistics Performance Index",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "World Bank API; indicator LP.LPI.OVRL.XQ; year 2022.",
+      "source_institution": "World Bank",
+      "unit": "Score (1-5)",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/LP.LPI.OVRL.XQ?format=json"
+      ],
+      "value": 3.6,
+      "year": null
+    },
+    {
+      "domain": "A4",
+      "id": "IND-A4-INF-002",
+      "is_complete_strict": true,
+      "label": "Quality of Electricity Supply",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "World Bank API; indicator EG.ELC.LOSS.ZS (electric power transmission and distribution losses % of output) used as reliability proxy; year 2022 (latest available).",
+      "source_institution": "World Bank",
+      "unit": "Percentage",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/EG.ELC.LOSS.ZS?format=json"
+      ],
+      "value": 6.89703040075174,
+      "year": null
+    },
+    {
+      "domain": "A4",
+      "id": "IND-A4-INF-003",
+      "is_complete_strict": true,
+      "label": "Industrial Electricity Price Volatility",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "World Bank API; indicator EG.ELC.LOSS.ZS (electric power transmission and distribution losses % of output). 3-year volatility proxy uses CV = std/mean of latest values (2022=6.8970, 2021=6.8970, 2020=6.8971); mean=6.8970, std=0.00003, CV=0.0000044 (rounded to 0.0000). Proxy caveat: loss variability \u2260 industrial electricity price volatility.",
+      "source_institution": "World Bank",
+      "unit": "CV (3y, ratio)",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/EG.ELC.LOSS.ZS?format=json"
+      ],
+      "value": 0.0,
+      "year": null
+    },
+    {
+      "domain": "A4",
+      "id": "IND-A4-INF-004",
+      "is_complete_strict": true,
+      "label": "Port Efficiency / Dwell Time",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "Tier-A proxy: Enterprise Surveys average time to clear exports through customs (IC.CUS.DURS.EX). Latest non-null value 2024 = 12.80509472 days. Proxy for port/dwell time efficiency; not a direct port dwell measure.",
+      "source_institution": "World Bank",
+      "unit": "Days",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/IC.CUS.DURS.EX?format=json"
+      ],
+      "value": 12.8051,
+      "year": null
+    },
+    {
+      "domain": "A4",
+      "id": "IND-A4-INF-005",
+      "is_complete_strict": true,
+      "label": "Industrial Internet Quality",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "World Bank API; indicator IT.NET.BBND.P2 (fixed broadband subscriptions per 100 people) used as industrial internet quality proxy; year 2023.",
+      "source_institution": "World Bank",
+      "unit": "Per 100 people",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/IT.NET.BBND.P2?format=json"
+      ],
+      "value": 13.0287,
+      "year": null
+    },
+    {
+      "domain": "A4",
+      "id": "IND-A4-INF-006",
+      "is_complete_strict": true,
+      "label": "Industrial Land Availability",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "Tier-A proxy: Enterprise Surveys time required to obtain an operating license (IC.FRM.DURS). Latest non-null value 2024 = 13.25109196 days. Proxy for industrial land/operational setup friction; lower days implies better availability.",
+      "source_institution": "World Bank",
+      "unit": "Score / Days",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/IC.FRM.DURS?format=json"
+      ],
+      "value": 13.2511,
+      "year": null
+    },
+    {
+      "domain": "A5",
+      "id": "IND-A5-SUP-001",
+      "is_complete_strict": true,
+      "label": "Export Concentration Index",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "Proxy for export concentration: WITS TradeStats HH market concentration index (HH-MKT-CNCNTRTN-NDX), latest available year 2023. UI: https://wits.worldbank.org/CountryProfile/en/country/by-country/startyear/ltst/endyear/ltst/indicator/HH-MKT-CNCNTRTN-NDX",
+      "source_institution": "WITS (World Bank)",
+      "unit": "Score (0-1)",
+      "urls": [
+        "https://wits.worldbank.org/API/V1/SDMX/V21/datasource/tradestats-trade/reporter/MYS/year/2023/indicator/HH-MKT-CNCNTRTN-NDX?format=JSON"
+      ],
+      "value": 0.098755799845,
+      "year": null
+    },
+    {
+      "domain": "A5",
+      "id": "IND-A5-SUP-002",
+      "is_complete_strict": true,
+      "label": "Manufacturing Value Added",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "World Bank API; indicator NV.IND.MANF.ZS (manufacturing value added % of GDP); year 2024.",
+      "source_institution": "World Bank",
+      "unit": "Percentage",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/NV.IND.MANF.ZS?format=json"
+      ],
+      "value": 22.5003191935602,
+      "year": null
+    },
+    {
+      "domain": "A5",
+      "id": "IND-A5-SUP-003",
+      "is_complete_strict": false,
+      "label": "Critical Raw Material Production",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "USGS / IEA",
+      "unit": "Percentage",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A5",
+      "id": "IND-A5-SUP-004",
+      "is_complete_strict": false,
+      "label": "Quality Certification Density",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "ISO",
+      "unit": "Count / Ratio",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A5",
+      "id": "IND-A5-SUP-005",
+      "is_complete_strict": false,
+      "label": "Supplier Delivery Time",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "S&P Global",
+      "unit": "Index (50=neutral)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A6",
+      "id": "IND-A6-LAB-001",
+      "is_complete_strict": true,
+      "label": "Human Capital Index",
+      "missing_date": false,
+      "missing_url": false,
+      "missing_value": false,
+      "notes": "World Bank API; indicator HD.HCI.OVRL; year 2020.",
+      "source_institution": "World Bank",
+      "unit": "Score (0-1)",
+      "urls": [
+        "https://api.worldbank.org/v2/country/MYS/indicator/HD.HCI.OVRL?format=json"
+      ],
+      "value": 0.611,
+      "year": null
+    },
+    {
+      "domain": "A6",
+      "id": "IND-A6-LAB-002",
+      "is_complete_strict": false,
+      "label": "STEM Graduates",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "Tier A not found quickly; consider Tier B candidate: UNESCO/OECD STEM graduate statistics (TODO URL).",
+      "source_institution": "UNESCO / OECD",
+      "unit": "Percentage",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A6",
+      "id": "IND-A6-LAB-003",
+      "is_complete_strict": false,
+      "label": "Labor Freedom / Flexibility",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "Tier A not found quickly; consider Tier B candidate: Fraser or Heritage labor freedom indices (TODO URL).",
+      "source_institution": "Fraser Institute / Heritage",
+      "unit": "Score (0-100)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A6",
+      "id": "IND-A6-LAB-004",
+      "is_complete_strict": false,
+      "label": "Strike / Labor Unrest Risk",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "Tier A not found quickly; consider Tier B candidate: ACLED labor unrest proxy data (TODO URL).",
+      "source_institution": "Verisk / ACLED",
+      "unit": "Score",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A6",
+      "id": "IND-A6-LAB-005",
+      "is_complete_strict": false,
+      "label": "Ease of Finding Skilled Employees",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "Tier A not found quickly; consider Tier B candidate: WEF or ManpowerGroup talent surveys (TODO URL).",
+      "source_institution": "WEF / ManpowerGroup",
+      "unit": "Score (1-7)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A7",
+      "id": "IND-A7-CAP-001",
+      "is_complete_strict": false,
+      "label": "Exchange Rate Volatility",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "IMF",
+      "unit": "Percentage",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A7",
+      "id": "IND-A7-CAP-002",
+      "is_complete_strict": false,
+      "label": "Chinn-Ito Index",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "Chinn-Ito",
+      "unit": "Score (-1.9 to 2.3)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A7",
+      "id": "IND-A7-CAP-003",
+      "is_complete_strict": false,
+      "label": "Inflation Rate (CPI)",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "IMF / Central Bank",
+      "unit": "Percentage",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A7",
+      "id": "IND-A7-CAP-004",
+      "is_complete_strict": false,
+      "label": "Sovereign Credit Rating",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "S&P / Moody's / Fitch",
+      "unit": "Alphanumeric (AAA-D)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A7",
+      "id": "IND-A7-CAP-005",
+      "is_complete_strict": false,
+      "label": "Central Bank Transparency",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "Academic / BIS",
+      "unit": "Score",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A8",
+      "id": "IND-A8-ESG-001",
+      "is_complete_strict": false,
+      "label": "Corruption Perceptions Index",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "Transparency International",
+      "unit": "Score (0-100)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A8",
+      "id": "IND-A8-ESG-002",
+      "is_complete_strict": false,
+      "label": "Environmental Performance Index",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "Yale / Columbia",
+      "unit": "Score (0-100)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A8",
+      "id": "IND-A8-ESG-003",
+      "is_complete_strict": false,
+      "label": "Labor Rights Index",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "Penn State / NGO",
+      "unit": "Score (0-100)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A8",
+      "id": "IND-A8-ESG-004",
+      "is_complete_strict": false,
+      "label": "Control of Corruption",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "World Bank",
+      "unit": "Score (-2.5 to 2.5)",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    },
+    {
+      "domain": "A8",
+      "id": "IND-A8-ESG-005",
+      "is_complete_strict": false,
+      "label": "Social License / Protest Risk",
+      "missing_date": true,
+      "missing_url": true,
+      "missing_value": true,
+      "notes": "",
+      "source_institution": "Verisk / ACLED",
+      "unit": "Index",
+      "urls": [],
+      "value": "VALUE(TODO)",
+      "year": null
+    }
+  ],
+  "meta": {
+    "case_id": "PD-MYS-SEMI-OSAT-EXPORT-001",
+    "country": "Malaysia",
+    "overlay": "Balanced",
+    "sector": "SEMI",
+    "slug": "pd-mys-semi-osat-export-001",
+    "title": "Publish v0.1 - Malaysia - Semiconductor OSAT Export Hub (LRF-1)",
+    "weight_profile": "WP-SEMI-OSAT-EXPORT-1.1"
+  },
+  "next_actions": [
+    "Implement scoring once MV-EF completeness >= 75% for key domains.",
+    "Sync fatal-missingness list automatically from rubric note."
+  ],
+  "scores": {
+    "composite": {
+      "reason": "scoring not computed in v1",
+      "value": null
+    },
+    "domains": {
+      "A1": {
+        "cap": "low",
+        "missing_pct": 66.67,
+        "reason": "insufficient data",
+        "value": null
+      },
+      "A2": {
+        "cap": "high",
+        "missing_pct": 0.0,
+        "reason": "scoring not computed in v1",
+        "value": null
+      },
+      "A3": {
+        "cap": "low",
+        "missing_pct": 100.0,
+        "reason": "insufficient data",
+        "value": null
+      },
+      "A4": {
+        "cap": "high",
+        "missing_pct": 0.0,
+        "reason": "scoring not computed in v1",
+        "value": null
+      },
+      "A5": {
+        "cap": "low",
+        "missing_pct": 60.0,
+        "reason": "insufficient data",
+        "value": null
+      },
+      "A6": {
+        "cap": "low",
+        "missing_pct": 80.0,
+        "reason": "insufficient data",
+        "value": null
+      },
+      "A7": {
+        "cap": "low",
+        "missing_pct": 100.0,
+        "reason": "insufficient data",
+        "value": null
+      },
+      "A8": {
+        "cap": "low",
+        "missing_pct": 100.0,
+        "reason": "insufficient data",
+        "value": null
+      }
+    }
+  },
+  "warnings": [
+    "Fatal-missingness list is provisional; sync from rubric in v1.1."
+  ]
+}

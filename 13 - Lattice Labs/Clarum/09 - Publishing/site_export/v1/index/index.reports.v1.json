@@ -1,0 +1,115 @@
+{
+  "reports": [
+    {
+      "country": "Hungary",
+      "dossier_slug": "gd-hun-ev-oem-export-001",
+      "evidence_tier_summary": {
+        "A": 42,
+        "B": 0
+      },
+      "flags": [],
+      "id": "gd-hun-ev-oem-export-001",
+      "path": "reports/gd-hun-ev-oem-export-001.report.v1.json",
+      "profile_id": "WP-EV-OEM-EXPORT-1.1",
+      "track": "export"
+    },
+    {
+      "country": "Hungary",
+      "dossier_slug": "hungary.ev_oem_domestic.wp-ev-oem-dom-1.1.balanced",
+      "evidence_tier_summary": {
+        "A": 41,
+        "B": 1
+      },
+      "flags": [
+        {
+          "id": "FLAG-TIERB-PRESENT",
+          "indicator_ids": [
+            "IND-A3-POL-002"
+          ],
+          "summary": "Tier B evidence present; confidence capped per indicator."
+        }
+      ],
+      "id": "hungary.ev_oem_domestic.wp-ev-oem-dom-1.1.balanced",
+      "path": "reports/hungary.ev_oem_domestic.wp-ev-oem-dom-1.1.balanced.report.v1.json",
+      "profile_id": "WP-EV-OEM-DOM-1.1",
+      "track": "domestic"
+    },
+    {
+      "country": "Malaysia",
+      "dossier_slug": "malaysia.ev_oem_domestic.wp-ev-oem-dom-1.1.balanced",
+      "evidence_tier_summary": {
+        "A": 41,
+        "B": 1
+      },
+      "flags": [
+        {
+          "id": "FLAG-TIERB-PRESENT",
+          "indicator_ids": [
+            "IND-A3-POL-002"
+          ],
+          "summary": "Tier B evidence present; confidence capped per indicator."
+        }
+      ],
+      "id": "malaysia.ev_oem_domestic.wp-ev-oem-dom-1.1.balanced",
+      "path": "reports/malaysia.ev_oem_domestic.wp-ev-oem-dom-1.1.balanced.report.v1.json",
+      "profile_id": "WP-EV-OEM-DOM-1.1",
+      "track": "domestic"
+    },
+    {
+      "country": "Mexico",
+      "dossier_slug": "mexico.ev_oem_domestic.wp-ev-oem-dom-1.1.balanced",
+      "evidence_tier_summary": {
+        "A": 40,
+        "B": 2
+      },
+      "flags": [
+        {
+          "id": "FLAG-TIERB-PRESENT",
+          "indicator_ids": [
+            "IND-A3-POL-002",
+            "IND-A5-SUP-002"
+          ],
+          "summary": "Tier B evidence present; confidence capped per indicator."
+        }
+      ],
+      "id": "mexico.ev_oem_domestic.wp-ev-oem-dom-1.1.balanced",
+      "path": "reports/mexico.ev_oem_domestic.wp-ev-oem-dom-1.1.balanced.report.v1.json",
+      "profile_id": "WP-EV-OEM-DOM-1.1",
+      "track": "domestic"
+    },
+    {
+      "country": "Mexico",
+      "dossier_slug": "pd-mex-ev-oem-export-001",
+      "evidence_tier_summary": {
+        "A": 41,
+        "B": 1
+      },
+      "flags": [
+        {
+          "id": "FLAG-TIERB-PRESENT",
+          "indicator_ids": [
+            "IND-A5-SUP-002"
+          ],
+          "summary": "Tier B evidence present; confidence capped per indicator."
+        }
+      ],
+      "id": "pd-mex-ev-oem-export-001",
+      "path": "reports/pd-mex-ev-oem-export-001.report.v1.json",
+      "profile_id": "WP-EV-OEM-EXPORT-1.1",
+      "track": "export"
+    },
+    {
+      "country": "Malaysia",
+      "dossier_slug": "pd-mys-semi-osat-export-001",
+      "evidence_tier_summary": {
+        "A": 42,
+        "B": 0
+      },
+      "flags": [],
+      "id": "pd-mys-semi-osat-export-001",
+      "path": "reports/pd-mys-semi-osat-export-001.report.v1.json",
+      "profile_id": "WP-SEMI-OSAT-EXPORT-1.1",
+      "track": "export"
+    }
+  ]
+}
