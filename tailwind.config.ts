@@ -3,6 +3,13 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
+    screens: {
+      xs: "480px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+    },
     extend: {
       colors: {
         bg: "rgb(var(--bg))",
@@ -11,6 +18,7 @@ const config: Config = {
         card: "rgb(var(--card))",
         border: "rgb(var(--border))",
         accent: "rgb(var(--accent))",
+        "accent-secondary": "rgb(var(--accent-secondary))",
         accent2: "rgb(var(--accent-2))",
         accent3: "rgb(var(--accent-3))",
         good: "rgb(var(--good))",

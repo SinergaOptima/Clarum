@@ -100,7 +100,7 @@ export function Hero({
     <div
       ref={containerRef}
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-border p-8 lg:p-12",
+        "relative overflow-hidden rounded-2xl border border-border p-4 xs:p-6 md:p-8 lg:p-12",
         className
       )}
     >

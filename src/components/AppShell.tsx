@@ -2,16 +2,21 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { type ReactNode, useEffect, useId, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { type ReactNode, useCallback, useEffect, useId, useRef, useState } from "react";
 import { CommandPalette } from "@/components/CommandPalette";
 import { Footer } from "@/components/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { isExportBundleAvailable } from "@/data/loaders";
 
+type DocumentWithViewTransition = Document & {
+  startViewTransition?: (updateCallback: () => void) => { finished: Promise<void> };
+};
+
 const navLinks = [
   { href: "/dossiers", label: "Dossiers" },
+  { href: "/scenarios", label: "Scenarios" },
   { href: "/evidence", label: "Evidence" },
   { href: "/methodology", label: "Methodology" },
   { href: "/costs", label: "Costs" },
@@ -44,8 +49,65 @@ export function AppShell({ children }: { children: ReactNode }) {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
+  // View Transitions API: intercept internal link clicks for smooth page transitions
+  const router = useRouter();
+  const shellRef = useRef<HTMLDivElement>(null);
+
+  const navigateWithTransition = useCallback(
+    (href: string) => {
+      const doc = document as DocumentWithViewTransition;
+      if (typeof doc.startViewTransition === "function") {
+        doc.startViewTransition(() => {
+          router.push(href);
+        });
+      } else {
+        router.push(href);
+      }
+    },
+    [router],
+  );
+
+  useEffect(() => {
+    const shell = shellRef.current;
+    if (!shell) return;
+
+    const handleClick = (e: MouseEvent) => {
+      // Find the closest anchor element
+      const anchor = (e.target as HTMLElement).closest("a");
+      if (!anchor) return;
+
+      const href = anchor.getAttribute("href");
+      if (!href) return;
+
+      // Skip if modifier keys are held (open in new tab, etc.)
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      // Skip external links, hash-only links, or non-http(s) protocols
+      if (anchor.target === "_blank") return;
+      if (href.startsWith("#")) return;
+      if (href.startsWith("mailto:") || href.startsWith("tel:")) return;
+
+      // Only intercept same-origin links
+      try {
+        const url = new URL(href, window.location.origin);
+        if (url.origin !== window.location.origin) return;
+
+        // Skip if navigating to the current page
+        if (url.pathname === pathname) return;
+
+        e.preventDefault();
+        navigateWithTransition(url.pathname + url.search + url.hash);
+      } catch {
+        // Invalid URL, let the browser handle it
+      }
+    };
+
+    shell.addEventListener("click", handleClick);
+    return () => shell.removeEventListener("click", handleClick);
+  }, [pathname, navigateWithTransition]);
+
   return (
-    <div className="min-h-screen text-fg">
+    <div ref={shellRef} className="min-h-screen text-fg">
       <div className="theme-bg" />
       <ScrollProgress />
       <CommandPalette open={isPaletteOpen} onOpenChange={setIsPaletteOpen} />
@@ -143,7 +205,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         )}
       </AnimatePresence>
       <div>
-        <main className="min-w-0">{children}</main>
+        <main className="min-w-0" style={{ viewTransitionName: "page-content" }}>{children}</main>
         {isDemoMode ? (
           <div className="page-shell pt-0">
             <div className="mt-10 text-xs text-muted">DEMO MODE</div>

@@ -168,6 +168,27 @@ export function CommandPalette({
         action: () => router.push("/dossiers"),
       },
       {
+        id: "nav-scenarios",
+        title: "Scenarios",
+        subtitle: "Scenario directory and track lenses",
+        section: "Navigation",
+        action: () => router.push("/scenarios"),
+      },
+      {
+        id: "nav-scenario-critical-minerals",
+        title: "Scenario: Critical Minerals & Materials",
+        subtitle: "Open dossiers filtered to critical minerals",
+        section: "Navigation",
+        action: () => router.push("/dossiers?track=critical_minerals"),
+      },
+      {
+        id: "nav-scenario-maritime-logistics",
+        title: "Scenario: Maritime & Logistics Resilience",
+        subtitle: "Open dossiers filtered to maritime logistics",
+        section: "Navigation",
+        action: () => router.push("/dossiers?track=maritime_logistics"),
+      },
+      {
         id: "nav-evidence",
         title: "Evidence",
         subtitle: "Source notes and backlinks",
@@ -377,6 +398,8 @@ export function CommandPalette({
             role="listbox"
             id={listboxId}
             aria-label="Search results"
+            aria-live="polite"
+            aria-atomic="false"
           >
             {isLoading && (
               <div className="card-pad-tight rounded-lg border border-dashed border-border bg-card text-sm text-muted">

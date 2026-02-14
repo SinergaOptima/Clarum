@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "sync-vault-context": "node scripts/sync_vault_notes_to_context.js",
     "sync-site-export": "node scripts/sync_site_export_to_public.js",
+    "verify:site-export": "node scripts/verify_site_export_tracks.js",
     "dev": "bun run sync-site-export && next dev",
     "build": "bun run sync-site-export && next build",
     "start": "next start",
@@ -16,10 +18,11 @@
   "dependencies": {
     "adm-zip": "^0.5.16",
     "clsx": "^2.1.1",
+    "dotenv": "^17.3.1",
+    "motion": "^12.0.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "motion": "^12.0.0",
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {

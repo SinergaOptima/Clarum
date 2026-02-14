@@ -6,11 +6,16 @@ import { formatDate } from "@/lib/format";
 
 export function EvidenceCard({ item }: { item: EvidenceListItem }) {
   return (
-    <Link
-      href={`/evidence/${item.id}`}
-      className="group/ev block h-full overflow-hidden rounded-xl border border-border bg-card shadow-raised transition-all duration-300 hover:shadow-floating hover:border-accent/25 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
-    >
-      <CardHeader className="card-pad mb-0 border-b border-border/70 bg-gradient-to-br from-accent2/10 to-transparent">
+    <article className="group/ev relative block h-full overflow-hidden rounded-xl border border-border bg-card shadow-raised transition-all duration-300 hover:shadow-floating hover:border-accent/25">
+      <Link
+        href={`/evidence/${item.id}`}
+        className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50 focus-visible:ring-inset"
+        aria-label={`Read evidence: ${item.title} - ${item.sourceType}, published ${formatDate(item.publicationDate)}`}
+        tabIndex={0}
+      >
+        <span className="sr-only">Read evidence</span>
+      </Link>
+      <CardHeader className="card-pad mb-0 border-b border-border/70 bg-gradient-to-br from-accent2/10 to-transparent relative z-20">
         <div>
           <CardTitle className="transition-colors duration-300 group-hover/ev:text-accent">
             {item.title}
@@ -22,14 +27,11 @@ export function EvidenceCard({ item }: { item: EvidenceListItem }) {
         </div>
         <Badge variant="neutral">{formatDate(item.publicationDate)}</Badge>
       </CardHeader>
-      <div className="stack-md card-pad text-sm text-fg/80">
+      <div className="stack-md card-pad text-sm text-fg/80 relative z-20">
         <p>{item.summary}</p>
         <div className="flex flex-wrap gap-2 text-xs">
           {item.tags.map((tag) => (
-            <Badge
-              key={tag}
-              className="transition-all duration-200 group-hover/ev:scale-[1.03] group-hover/ev:shadow-sm"
-            >
+            <Badge key={tag}>
               {tag}
             </Badge>
           ))}
@@ -44,6 +46,6 @@ export function EvidenceCard({ item }: { item: EvidenceListItem }) {
           </span>
         </span>
       </div>
-    </Link>
+    </article>
   );
 }

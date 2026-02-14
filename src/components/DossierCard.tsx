@@ -12,13 +12,18 @@ export function DossierCard({ dossier }: { dossier: DossierListItem }) {
   const tierB = dossier.tierSummary.B ?? 0;
 
   return (
-    <Link
-      href={`/dossiers/${dossier.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-border/90 bg-card/95 shadow-raised transition-all duration-300 hover:shadow-floating hover:border-accent/25 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
-    >
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border/90 bg-card/95 shadow-raised transition-all duration-300 hover:shadow-floating hover:border-accent/25">
+      <Link
+        href={`/dossiers/${dossier.slug}`}
+        className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50 focus-visible:ring-inset"
+        aria-label={`Open dossier: ${dossier.title} - ${dossier.country}, Profile ${dossier.profileId}`}
+        tabIndex={0}
+      >
+        <span className="sr-only">Open dossier</span>
+      </Link>
       <CardHeader className="relative card-pad mb-0 border-b border-border/70 bg-gradient-to-br from-accent/10 to-transparent">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/[0.06] to-accent/[0.02] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-        <div className="relative stack-sm">
+        <div className="relative stack-sm z-20">
           <div className="flex flex-wrap gap-2">
             <Badge variant="neutral" className="tracking-[0.16em] uppercase">
               {dossier.trackLabel}
@@ -33,7 +38,7 @@ export function DossierCard({ dossier }: { dossier: DossierListItem }) {
           </div>
         </div>
       </CardHeader>
-      <div className="stack-md card-pad flex-1 text-sm text-fg/80">
+      <div className="stack-md card-pad flex-1 text-sm text-fg/80 relative z-20">
         <p className="leading-relaxed">{dossier.summary}</p>
 
         <div className="grid gap-3 sm:grid-cols-2">
@@ -79,6 +84,6 @@ export function DossierCard({ dossier }: { dossier: DossierListItem }) {
           </span>
         </span>
       </div>
-    </Link>
+    </article>
   );
 }

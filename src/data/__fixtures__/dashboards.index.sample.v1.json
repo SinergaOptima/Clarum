@@ -1,0 +1,33 @@
+{
+  "version": "v1",
+  "dashboards": [
+    {
+      "bytes": 1200,
+      "kind": "ops_deltas",
+      "name": "deltas_7c.v1.json",
+      "relpath": "dashboards/deltas_7c.v1.json",
+      "sha256": "aaa"
+    },
+    {
+      "bytes": 2200,
+      "kind": "ops_backlog",
+      "name": "tier_a_backlog_bundle_7c.v1.json",
+      "relpath": "dashboards/tier_a_backlog_bundle_7c.v1.json",
+      "sha256": "bbb"
+    },
+    {
+      "bytes": 3200,
+      "kind": null,
+      "name": "quality_lift_wave7_summary_7c.v1.json",
+      "relpath": "dashboards/quality_lift_wave7_summary_7c.v1.json",
+      "sha256": "ccc"
+    },
+    {
+      "bytes": 4200,
+      "kind": "custom",
+      "name": "z_misc.v1.json",
+      "relpath": "dashboards/z_misc.v1.json",
+      "sha256": "ddd"
+    }
+  ]
+}

@@ -68,6 +68,8 @@ export type DossierListItem = {
   country: string;
   track: "export" | "domestic" | string;
   trackLabel: string;
+  trackDescription?: string;
+  scenarioKey?: string;
   profileId: string;
   confidenceScore: number;
   completenessScore: number;
@@ -83,6 +85,8 @@ export type DossierDetail = {
   country: string;
   track: "export" | "domestic" | string;
   trackLabel: string;
+  trackDescription?: string;
+  scenarioKey?: string;
   profileId: string;
   confidenceScore: number;
   confidenceCap: string;

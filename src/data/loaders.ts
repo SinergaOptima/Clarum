@@ -16,6 +16,17 @@ import {
   getEvidenceById as getDemoEvidenceById,
   getEvidenceForDossier as getDemoEvidenceForDossier,
 } from "@/demo/data";
+import {
+  deriveTrackFromReportId,
+  getTrackDescription,
+  getTrackLabel,
+  normalizeTrack,
+} from "@/data/track";
+import {
+  type DashboardsIndex,
+  type DashboardsPointer,
+  normalizeDashboardsIndex,
+} from "@/data/dashboards";
 
 type ReportIndicator = {
   value?: string | number;
@@ -82,12 +93,61 @@ type ReportPayload = {
 const EXPORT_URL_BASE = "/data/site_export.v1";
 const REPORTS_INDEX_PATH = "index/index.reports.v1.json";
 const EVIDENCE_INDEX_PATH = "evidence/evidence_index.v1.json";
+const DASHBOARDS_INDEX_DEFAULT_PATH = "dashboards/index.dashboards.v1.json";
+const SOURCE_STAMP_PATHS = ["_meta/source_stamp.json"];
+const OPS_DASHBOARD_PATHS = {
+  trackCounts: ["dashboards/track_counts_from_export.v1.json"],
+  staticUsage: ["dashboards/static_usage_report_7c.v1.json"],
+  tierABacklog: ["dashboards/tier_a_backlog_bundle_7c.v1.json", "index/tier_a_backlog_bundle_7c.v1.json"],
+  deltas: ["dashboards/deltas_7c.v1.json", "index/deltas_7c.v1.json"],
+  waveState: ["dashboards/wave_engine_state.v1.json"],
+  latestWave: ["dashboards/latest.wave_engine.v1.json"],
+} as const;
+const QUALITY_LIFT_SUMMARY_PATTERN = /^quality_lift_wave.*_summary_7c\.v1\.json$/i;
+
+let hasLoggedTrackCountsInDev = false;
 
 type DossierMemo = {
   markdown: string | null;
   json: Record<string, unknown> | null;
   markdownError?: string;
   jsonError?: string;
+};
+
+type DashboardLoadResult = {
+  backlog: Record<string, unknown> | null;
+  deltas: Record<string, unknown> | null;
+  backlogPath: string | null;
+  deltasPath: string | null;
+  fetchedAt: string;
+};
+
+type OpsDashboardsLoadResult = {
+  trackCounts: Record<string, unknown> | null;
+  staticUsage: Record<string, unknown> | null;
+  tierABacklog: Record<string, unknown> | null;
+  deltas: Record<string, unknown> | null;
+  waveState: Record<string, unknown> | null;
+  latestWave: Record<string, unknown> | null;
+  qualityLiftSummaries: Array<{ name: string; value: Record<string, unknown> | null }>;
+  present: string[];
+  missing: string[];
+  warnings: string[];
+  paths: Record<string, string | null>;
+  fetchedAt: string;
+};
+
+type SourceStampLoadResult = {
+  stamp: Record<string, unknown> | null;
+  stampPath: string | null;
+  fetchedAt: string;
+};
+
+type DashboardsIndexLoadResult = {
+  pointer: DashboardsPointer | null;
+  index: DashboardsIndex | null;
+  indexPath: string | null;
+  warnings: string[];
 };
 
 const domainLabels: Record<string, { name: string; summary: string }> = {
@@ -248,8 +308,260 @@ export async function getAllEvidenceIndex(): Promise<EvidenceIndexEntry[]> {
   return readJson<EvidenceIndexEntry[]>(EVIDENCE_INDEX_PATH);
 }
 
-function normalizeTrackLabel(track: string) {
-  return track.toLowerCase() === "domestic" ? "Domestic" : "Export";
+async function readFirstJsonCandidate(
+  candidates: string[]
+): Promise<{ value: Record<string, unknown> | null; path: string | null }> {
+  for (const candidate of candidates) {
+    try {
+      if (isServer()) {
+        const exists = await serverFileExists(candidate);
+        if (!exists) continue;
+      }
+      const value = await readJson<Record<string, unknown>>(candidate);
+      return { value, path: candidate };
+    } catch {
+      // Keep searching fallback locations.
+    }
+  }
+  return { value: null, path: null };
+}
+
+async function readFirstJsonCandidateDetailed(candidates: string[]): Promise<{
+  value: Record<string, unknown> | null;
+  path: string | null;
+  errors: string[];
+}> {
+  const errors: string[] = [];
+  for (const candidate of candidates) {
+    try {
+      if (isServer()) {
+        const exists = await serverFileExists(candidate);
+        if (!exists) continue;
+      }
+      const value = await readJson<Record<string, unknown>>(candidate);
+      return { value, path: candidate, errors };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      errors.push(`${candidate}: ${message}`);
+    }
+  }
+  return { value: null, path: null, errors };
+}
+
+function normalizeDashboardsPointer(raw: unknown): DashboardsPointer | null {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const pointer = raw as Record<string, unknown>;
+  return {
+    count: typeof pointer.count === "number" ? pointer.count : undefined,
+    index_path: typeof pointer.index_path === "string" ? pointer.index_path : undefined,
+    present: typeof pointer.present === "boolean" ? pointer.present : undefined,
+    warnings: Array.isArray(pointer.warnings)
+      ? pointer.warnings.filter((item): item is string => typeof item === "string")
+      : undefined,
+  };
+}
+
+function logDev(message: string) {
+  if (process.env.NODE_ENV === "production") return;
+  console.warn(`[dashboards] ${message}`);
+}
+
+export async function loadDashboardsIndex(): Promise<DashboardsIndexLoadResult> {
+  const warnings: string[] = [];
+  let reportsIndexRaw: Record<string, unknown>;
+  try {
+    reportsIndexRaw = (await readJson<Record<string, unknown>>(REPORTS_INDEX_PATH)) ?? {};
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    warnings.push(`Failed to read reports index: ${message}`);
+    return { pointer: null, index: null, indexPath: null, warnings };
+  }
+
+  const pointer = normalizeDashboardsPointer(reportsIndexRaw.dashboards);
+  const candidatePaths: string[] = [];
+  if (pointer?.index_path && pointer.present !== false) {
+    const normalizedPath = normalizeExportPath(pointer.index_path);
+    if (normalizedPath) candidatePaths.push(normalizedPath);
+  }
+  if (pointer === null || pointer.present !== false) {
+    candidatePaths.push(DASHBOARDS_INDEX_DEFAULT_PATH);
+  }
+
+  if (candidatePaths.length === 0) {
+    return { pointer, index: null, indexPath: null, warnings };
+  }
+
+  const result = await readFirstJsonCandidateDetailed(
+    Array.from(new Set(candidatePaths)).filter(Boolean)
+  );
+  for (const error of result.errors) warnings.push(error);
+
+  if (!result.value) {
+    return { pointer, index: null, indexPath: null, warnings };
+  }
+
+  const parsed = normalizeDashboardsIndex(result.value);
+  if (!parsed) {
+    warnings.push(`Invalid dashboards index shape: ${result.path ?? "unknown path"}`);
+    logDev(`Invalid dashboards index shape at ${result.path ?? "unknown path"}`);
+    return { pointer, index: null, indexPath: result.path, warnings };
+  }
+
+  return { pointer, index: parsed, indexPath: result.path, warnings };
+}
+
+export async function loadDashboardJson(
+  relativePath: string
+): Promise<{ value: Record<string, unknown> | null; error: string | null }> {
+  const normalizedPath = normalizeExportPath(relativePath);
+  if (!normalizedPath) return { value: null, error: "Invalid dashboard path." };
+
+  try {
+    if (isServer()) {
+      const exists = await serverFileExists(normalizedPath);
+      if (!exists) return { value: null, error: "Dashboard file not found." };
+    }
+    const value = await readJson<Record<string, unknown>>(normalizedPath);
+    return { value, error: null };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (process.env.NODE_ENV !== "production") {
+      logDev(`Failed to load dashboard JSON ${normalizedPath}: ${message}`);
+    }
+    return { value: null, error: message };
+  }
+}
+
+async function loadQualityLiftSummaries(
+  warnings: string[]
+): Promise<Array<{ name: string; value: Record<string, unknown> | null }>> {
+  if (!isServer()) return [];
+  try {
+    const fs = await import("node:fs/promises");
+    const path = await import("node:path");
+    const root = await getServerExportRoot();
+    const dashboardsDir = path.join(root, "dashboards");
+    const entries = await fs.readdir(dashboardsDir, { withFileTypes: true });
+    const names = entries
+      .filter((entry) => entry.isFile() && QUALITY_LIFT_SUMMARY_PATTERN.test(entry.name))
+      .map((entry) => entry.name)
+      .sort((left, right) => left.localeCompare(right));
+
+    const results: Array<{ name: string; value: Record<string, unknown> | null }> = [];
+    for (const name of names) {
+      const relativePath = `dashboards/${name}`;
+      try {
+        const value = await readJson<Record<string, unknown>>(relativePath);
+        results.push({ name, value });
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        warnings.push(`${relativePath}: ${message}`);
+        results.push({ name, value: null });
+      }
+    }
+    return results;
+  } catch {
+    return [];
+  }
+}
+
+export async function loadOpsDashboards(): Promise<OpsDashboardsLoadResult> {
+  const warnings: string[] = [];
+  const pathEntries = Object.entries(OPS_DASHBOARD_PATHS);
+  const loaded = await Promise.all(
+    pathEntries.map(async ([key, candidates]) => {
+      const result = await readFirstJsonCandidateDetailed([...candidates]);
+      for (const error of result.errors) warnings.push(error);
+      const dashboardName = candidates[0].replace(/^dashboards\//, "");
+      return {
+        key,
+        dashboardName,
+        value: result.value,
+        path: result.path,
+      };
+    })
+  );
+
+  const qualityLiftSummaries = await loadQualityLiftSummaries(warnings);
+
+  const present = loaded
+    .filter((item) => item.value !== null)
+    .map((item) => item.dashboardName);
+  for (const summary of qualityLiftSummaries) {
+    if (summary.value !== null) present.push(summary.name);
+  }
+  const missing = loaded
+    .filter((item) => item.value === null)
+    .map((item) => item.dashboardName);
+
+  const map = new Map(loaded.map((item) => [item.key, item]));
+
+  return {
+    trackCounts: map.get("trackCounts")?.value ?? null,
+    staticUsage: map.get("staticUsage")?.value ?? null,
+    tierABacklog: map.get("tierABacklog")?.value ?? null,
+    deltas: map.get("deltas")?.value ?? null,
+    waveState: map.get("waveState")?.value ?? null,
+    latestWave: map.get("latestWave")?.value ?? null,
+    qualityLiftSummaries,
+    present: present.sort((left, right) => left.localeCompare(right)),
+    missing: missing.sort((left, right) => left.localeCompare(right)),
+    warnings,
+    paths: Object.fromEntries(loaded.map((item) => [item.key, item.path])),
+    fetchedAt: new Date().toISOString(),
+  };
+}
+
+export async function loadDashboards(): Promise<DashboardLoadResult> {
+  const ops = await loadOpsDashboards();
+  return {
+    backlog: ops.tierABacklog,
+    deltas: ops.deltas,
+    backlogPath: ops.paths.tierABacklog ?? null,
+    deltasPath: ops.paths.deltas ?? null,
+    fetchedAt: ops.fetchedAt,
+  };
+}
+
+export async function loadSourceStamp(): Promise<SourceStampLoadResult | null> {
+  const stampResult = await readFirstJsonCandidate(SOURCE_STAMP_PATHS);
+  if (!stampResult.value) return null;
+  return {
+    stamp: stampResult.value,
+    stampPath: stampResult.path,
+    fetchedAt: new Date().toISOString(),
+  };
+}
+
+function logTrackCountsInDev(dossiers: DossierListItem[]) {
+  if (process.env.NODE_ENV !== "development" || hasLoggedTrackCountsInDev) return;
+
+  const counts = new Map<string, number>();
+  for (const dossier of dossiers) {
+    counts.set(dossier.track, (counts.get(dossier.track) ?? 0) + 1);
+  }
+
+  console.info(
+    `[dev] dossier track counts: ${Array.from(counts.entries())
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([track, count]) => `${track}=${count}`)
+      .join(", ")}`
+  );
+  hasLoggedTrackCountsInDev = true;
+}
+
+function resolveTrack(entryId: string, rawTrack?: string | null) {
+  const derived = deriveTrackFromReportId(entryId);
+  if (derived !== "other") return derived;
+  return normalizeTrack(rawTrack);
+}
+
+function resolveTrackLabel(entryId: string, rawTrack?: string | null) {
+  return getTrackLabel(resolveTrack(entryId, rawTrack));
+}
+
+function resolveTrackDescription(entryId: string, rawTrack?: string | null) {
+  return getTrackDescription(resolveTrack(entryId, rawTrack));
 }
 
 function resolveEntrySlug(entry: ReportIndexEntry) {
@@ -267,8 +579,8 @@ function summarizeTier(tierSummary?: Record<string, number>) {
 }
 
 function fallbackTitle(entry: ReportIndexEntry) {
-  const track = normalizeTrackLabel(entry.track);
-  return `${entry.country} ${track} dossier`;
+  const trackLabel = resolveTrackLabel(entry.id, entry.track);
+  return `${entry.country} ${trackLabel} dossier`;
 }
 
 async function tryReadPayload(entryId: string) {
@@ -311,6 +623,56 @@ function isBlankIndicatorValue(value: string | number | null | undefined) {
   if (value === null || value === undefined) return true;
   if (typeof value !== "string") return false;
   return value.trim().length === 0;
+}
+
+function isPlaceholderIndicatorValue(value: string | number | null | undefined) {
+  if (typeof value !== "string") return false;
+  const normalized = value.trim().toLowerCase();
+  return /^value\([^)]*\)$/.test(normalized) || normalized === "todo";
+}
+
+function parseNumberish(value: string | number | null | undefined) {
+  if (typeof value === "number") return Number.isFinite(value) ? value : null;
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  const parsed = Number(trimmed.replace(/,/g, ""));
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function hasYearToken(value: string) {
+  return /\b(19|20)\d{2}\b/.test(value);
+}
+
+function isPlaceholderIndicatorYear(value: string | null | undefined) {
+  if (typeof value !== "string") return false;
+  const normalized = value.trim().toLowerCase();
+  return normalized.length === 0 || /^date\([^)]*\)$/.test(normalized) || normalized === "todo";
+}
+
+function normalizeMergedIndicatorValue(
+  value: string | number | null | undefined,
+  fallbackValue: string | number | null | undefined
+) {
+  if (!isPlaceholderIndicatorValue(value)) {
+    return value ?? "";
+  }
+  const fallbackNumeric = parseNumberish(fallbackValue);
+  if (fallbackNumeric !== null) return fallbackNumeric;
+  return 0;
+}
+
+function normalizeMergedIndicatorYear(
+  value: string | null | undefined,
+  fallbackYear: string | null | undefined
+) {
+  const candidate = value ?? fallbackYear ?? null;
+  if (candidate === null) return String(new Date().getFullYear());
+  if (!isPlaceholderIndicatorYear(candidate)) return candidate;
+  if (typeof fallbackYear === "string" && hasYearToken(fallbackYear)) {
+    return fallbackYear;
+  }
+  return String(new Date().getFullYear());
 }
 
 function mapIndicatorsFromPayload(payload: ReportPayload): Indicator[] {
@@ -368,13 +730,18 @@ function mergeIndicators(
     const fallback = fallbackById.get(indicator.id);
     if (!fallback) return indicator;
 
+    const mergedValueCandidate =
+      isBlankIndicatorValue(indicator.value) || isPlaceholderIndicatorValue(indicator.value)
+        ? fallback.value
+        : indicator.value;
+
     return {
       ...fallback,
       ...indicator,
       name: indicator.name || fallback.name,
-      value: isBlankIndicatorValue(indicator.value) ? fallback.value : indicator.value,
+      value: normalizeMergedIndicatorValue(mergedValueCandidate, fallback.value),
       unit: indicator.unit || fallback.unit,
-      year: indicator.year ?? fallback.year,
+      year: normalizeMergedIndicatorYear(indicator.year, fallback.year),
       source: indicator.source || fallback.source,
       domain: indicator.domain ?? fallback.domain,
       sourceInstitution: indicator.sourceInstitution || fallback.sourceInstitution,
@@ -447,13 +814,15 @@ function normalizeEvidenceListItem(entry: EvidenceIndexEntry): EvidenceListItem 
 export async function getAllDossiers(): Promise<DossierListItem[]> {
   const exportAvailable = await isExportBundleAvailable();
   if (!exportAvailable) {
-    return demoDossiers.map((dossier) => ({
+    const demoItems = demoDossiers.map((dossier) => ({
+      track: resolveTrack(dossier.slug, "export"),
       id: dossier.slug,
       slug: dossier.slug,
       title: dossier.title,
       country: dossier.country,
-      track: "export",
-      trackLabel: "Export",
+      trackLabel: resolveTrackLabel(dossier.slug, "export"),
+      trackDescription: resolveTrackDescription(dossier.slug, "export"),
+      scenarioKey: resolveTrack(dossier.slug, "export"),
       profileId: dossier.topic,
       confidenceScore: dossier.confidence,
       completenessScore: dossier.completeness,
@@ -461,6 +830,8 @@ export async function getAllDossiers(): Promise<DossierListItem[]> {
       tierSummary: { A: 0, B: 0 },
       flags: [],
     }));
+    logTrackCountsInDev(demoItems);
+    return demoItems;
   }
 
   try {
@@ -468,6 +839,7 @@ export async function getAllDossiers(): Promise<DossierListItem[]> {
     const results: DossierListItem[] = [];
 
     for (const entry of index.reports) {
+      const track = resolveTrack(entry.id, entry.track);
       const payload = (await tryReadPayload(entry.id)) as ReportPayload | null;
       const report = payload ? null : await readJson<ReportArtifact>(entry.path);
       const title = payload?.meta?.title ?? report?.meta?.case?.case_id ?? fallbackTitle(entry);
@@ -483,8 +855,10 @@ export async function getAllDossiers(): Promise<DossierListItem[]> {
         slug: resolveEntrySlug(entry),
         title,
         country: entry.country,
-        track: entry.track,
-        trackLabel: normalizeTrackLabel(entry.track),
+        track,
+        trackLabel: getTrackLabel(track),
+        trackDescription: getTrackDescription(track),
+        scenarioKey: track,
         profileId: entry.profile_id,
         confidenceScore,
         completenessScore: completenessPct / 100,
@@ -494,15 +868,18 @@ export async function getAllDossiers(): Promise<DossierListItem[]> {
       });
     }
 
+    logTrackCountsInDev(results);
     return results;
   } catch {
-    return demoDossiers.map((dossier) => ({
+    const demoItems = demoDossiers.map((dossier) => ({
+      track: resolveTrack(dossier.slug, "export"),
       id: dossier.slug,
       slug: dossier.slug,
       title: dossier.title,
       country: dossier.country,
-      track: "export",
-      trackLabel: "Export",
+      trackLabel: resolveTrackLabel(dossier.slug, "export"),
+      trackDescription: resolveTrackDescription(dossier.slug, "export"),
+      scenarioKey: resolveTrack(dossier.slug, "export"),
       profileId: dossier.topic,
       confidenceScore: dossier.confidence,
       completenessScore: dossier.completeness,
@@ -510,6 +887,8 @@ export async function getAllDossiers(): Promise<DossierListItem[]> {
       tierSummary: { A: 0, B: 0 },
       flags: [],
     }));
+    logTrackCountsInDev(demoItems);
+    return demoItems;
   }
 }
 
@@ -518,13 +897,16 @@ export async function getDossier(slug: string): Promise<DossierDetail | null> {
   if (!exportAvailable) {
     const dossier = demoDossiers.find((item) => item.slug === slug);
     if (!dossier) return null;
+    const track = resolveTrack(dossier.slug, "export");
     return {
       id: dossier.slug,
       slug: dossier.slug,
       title: dossier.title,
       country: dossier.country,
-      track: "export",
-      trackLabel: "Export",
+      track,
+      trackLabel: getTrackLabel(track),
+      trackDescription: getTrackDescription(track),
+      scenarioKey: track,
       profileId: dossier.topic,
       confidenceScore: dossier.confidence,
       confidenceCap: "demo",
@@ -551,6 +933,7 @@ export async function getDossier(slug: string): Promise<DossierDetail | null> {
     const report = await readJson<ReportArtifact>(entry.path);
     const payload = (await tryReadPayload(entry.id)) as ReportPayload | null;
     const payloadCompleteness = payload?.completeness;
+    const track = resolveTrack(entry.id, entry.track);
 
     const title = payload?.meta?.title ?? report?.meta?.case?.case_id ?? fallbackTitle(entry);
     const confidenceCap = report?.confidence?.overall_cap ?? "unknown";
@@ -579,8 +962,10 @@ export async function getDossier(slug: string): Promise<DossierDetail | null> {
       slug: resolveEntrySlug(entry),
       title,
       country: entry.country,
-      track: entry.track,
-      trackLabel: normalizeTrackLabel(entry.track),
+      track,
+      trackLabel: getTrackLabel(track),
+      trackDescription: getTrackDescription(track),
+      scenarioKey: track,
       profileId: entry.profile_id,
       confidenceScore,
       confidenceCap,
@@ -676,20 +1061,25 @@ export async function getEvidenceBacklinks(id: string): Promise<DossierListItem[
   if (!exportAvailable) {
     return demoDossiers
       .filter((dossier) => dossier.evidenceIds.includes(id))
-      .map((dossier) => ({
+      .map((dossier) => {
+        const track = resolveTrack(dossier.slug, "export");
+        return {
         id: dossier.slug,
         slug: dossier.slug,
         title: dossier.title,
         country: dossier.country,
-        track: "export",
-        trackLabel: "Export",
+        track,
+        trackLabel: getTrackLabel(track),
+        trackDescription: getTrackDescription(track),
+        scenarioKey: track,
         profileId: dossier.topic,
         confidenceScore: dossier.confidence,
         completenessScore: dossier.completeness,
         summary: dossier.summary,
         tierSummary: { A: 0, B: 0 },
         flags: [],
-      }));
+        };
+      });
   }
 
   try {
@@ -697,6 +1087,7 @@ export async function getEvidenceBacklinks(id: string): Promise<DossierListItem[
     const dossiers: DossierListItem[] = [];
 
     for (const entry of index.reports) {
+      const track = resolveTrack(entry.id, entry.track);
       const payload = (await tryReadPayload(entry.id)) as ReportPayload | null;
       const evidenceRefs = payload?.evidence_refs ?? [];
       if (!evidenceRefs.includes(id)) continue;
@@ -708,8 +1099,10 @@ export async function getEvidenceBacklinks(id: string): Promise<DossierListItem[
         slug: resolveEntrySlug(entry),
         title,
         country: entry.country,
-        track: entry.track,
-        trackLabel: normalizeTrackLabel(entry.track),
+        track,
+        trackLabel: getTrackLabel(track),
+        trackDescription: getTrackDescription(track),
+        scenarioKey: track,
         profileId: entry.profile_id,
         confidenceScore: confidenceScoreMap[payload?.confidence?.overall_cap ?? ""] ?? 0.5,
         completenessScore: (payload?.completeness?.overall_pct ?? 0) / 100,

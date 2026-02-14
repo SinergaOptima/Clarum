@@ -8,7 +8,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const base =
-  "btn inline-flex items-center justify-center gap-2 rounded-lg border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97]";
+  "btn inline-flex items-center justify-center gap-2 rounded-lg border transition-all duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50 hover:-translate-y-0.5 active:translate-y-0 active:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:active:scale-100";
 
 const variants = {
   primary:
@@ -20,8 +20,8 @@ const variants = {
 };
 
 const sizes = {
-  sm: "h-8 px-3 text-sm",
-  md: "h-10 px-4 text-sm",
+  sm: "h-9 px-3 text-sm min-h-[44px] sm:h-9 sm:min-h-0",
+  md: "h-11 px-4 text-sm",
   lg: "h-12 px-5 text-base",
 };
 

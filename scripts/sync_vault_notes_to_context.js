@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const AdmZip = require("adm-zip");
 
+const vaultDir = process.env.CLARUM_VAULT_DIR;
 const zipPath = path.resolve(process.env.CLARUM_VAULT_ZIP || "13 - Lattice Labs.zip");
 const vaultPrefix = "13 - Lattice Labs/Clarum/";
 const destRoot = path.resolve(".context", "clarum-vault", "13 - Lattice Labs", "Clarum");
@@ -22,30 +23,69 @@ const notePaths = [
   "00 - Dashboard & Index/Clarum — Roadmap.md",
 ];
 
-if (!fs.existsSync(zipPath)) {
-  console.error(`Missing vault zip at ${zipPath}`);
-  process.exit(1);
-}
+const vaultCandidateRoots = vaultDir
+  ? [path.resolve(vaultDir), path.join(path.resolve(vaultDir), "Clarum")]
+  : [];
 
-const targets = new Set(
-  notePaths.map((rel) => `${vaultPrefix}${rel}`.replace(/\\/g, "/"))
-);
+function resolveFromVaultDir(relativePathUnderClarumRoot) {
+  for (const candidateRoot of vaultCandidateRoots) {
+    const abs = path.join(candidateRoot, relativePathUnderClarumRoot);
+    if (fs.existsSync(abs)) {
+      return { absolutePath: abs, rootUsed: candidateRoot };
+    }
+  }
+  return null;
+}
 
 let extractedCount = 0;
 const extractedRelPaths = new Set();
 const topLevelFolders = new Set();
+const folderRootsUsed = new Set();
+const unresolvedForZip = [];
+let zip = null;
+let zipEntriesByName = null;
 
-try {
-  const zip = new AdmZip(zipPath);
-  const entries = zip.getEntries();
+for (const relativePath of notePaths) {
+  const resolved = resolveFromVaultDir(relativePath);
+  if (resolved) {
+    const outputPath = path.join(destRoot, relativePath);
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    fs.writeFileSync(outputPath, fs.readFileSync(resolved.absolutePath));
+    extractedCount += 1;
+    extractedRelPaths.add(relativePath);
+    folderRootsUsed.add(resolved.rootUsed);
 
-  for (const entry of entries) {
-    const entryName = entry.entryName.replace(/\\/g, "/");
-    if (!targets.has(entryName)) continue;
-    if (entry.isDirectory) continue;
+    const topLevel = relativePath.split("/")[0];
+    if (topLevel) topLevelFolders.add(topLevel);
+    continue;
+  }
 
-    const relativePath = entryName.slice(vaultPrefix.length);
-    if (!relativePath) continue;
+  unresolvedForZip.push(relativePath);
+}
+
+if (unresolvedForZip.length > 0) {
+  if (!fs.existsSync(zipPath)) {
+    console.error(`Missing vault zip at ${zipPath}`);
+    process.exit(1);
+  }
+
+  try {
+    zip = new AdmZip(zipPath);
+    zipEntriesByName = new Map(
+      zip
+        .getEntries()
+        .filter((entry) => !entry.isDirectory)
+        .map((entry) => [entry.entryName.replace(/\\/g, "/"), entry])
+    );
+  } catch (error) {
+    console.error("[sync-notes] Failed to read vault zip.");
+    process.exit(1);
+  }
+
+  for (const relativePath of unresolvedForZip) {
+    const zipEntryPath = `${vaultPrefix}${relativePath}`.replace(/\\/g, "/");
+    const entry = zipEntriesByName.get(zipEntryPath);
+    if (!entry) continue;
 
     const outputPath = path.join(destRoot, relativePath);
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
@@ -56,9 +96,6 @@ try {
     const topLevel = relativePath.split("/")[0];
     if (topLevel) topLevelFolders.add(topLevel);
   }
-} catch (error) {
-  console.error("[sync-notes] Failed to extract vault notes.");
-  process.exit(1);
 }
 
 const missing = notePaths.filter((rel) => !extractedRelPaths.has(rel));
@@ -69,5 +106,21 @@ if (missing.length) {
   }
 }
 
-console.log(`[sync-notes] Extracted ${extractedCount} files into .context.`);
+if (folderRootsUsed.size > 0) {
+  console.log(`[sync-notes] Source: vault_dir (${Array.from(folderRootsUsed).join(", ")})`);
+} else {
+  console.log(`[sync-notes] Source: vault_zip (${zipPath})`);
+}
+console.log(`[sync-notes] Wrote ${extractedCount} notes.`);
 console.log(`[sync-notes] Top-level folders: ${Array.from(topLevelFolders).join(", ")}`);
+
+const missingOutputs = notePaths.filter((rel) => {
+  const outputPath = path.join(destRoot, rel);
+  return !fs.existsSync(outputPath);
+});
+if (missingOutputs.length) {
+  console.warn(`[sync-notes] Missing ${missingOutputs.length} output file(s) under .context:`);
+  for (const rel of missingOutputs) {
+    console.warn(`- ${rel}`);
+  }
+}
