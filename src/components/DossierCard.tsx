@@ -15,7 +15,7 @@ export function DossierCard({ dossier }: { dossier: DossierListItem }) {
     <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border/90 bg-card/95 shadow-raised transition-all duration-300 hover:shadow-floating hover:border-accent/25">
       <Link
         href={`/dossiers/${dossier.slug}`}
-        className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50 focus-visible:ring-inset"
+        className="absolute inset-0 z-30 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50 focus-visible:ring-inset"
         aria-label={`Open dossier: ${dossier.title} - ${dossier.country}, Profile ${dossier.profileId}`}
         tabIndex={0}
       >

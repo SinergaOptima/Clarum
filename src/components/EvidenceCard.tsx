@@ -9,7 +9,7 @@ export function EvidenceCard({ item }: { item: EvidenceListItem }) {
     <article className="group/ev relative block h-full overflow-hidden rounded-xl border border-border bg-card shadow-raised transition-all duration-300 hover:shadow-floating hover:border-accent/25">
       <Link
         href={`/evidence/${item.id}`}
-        className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50 focus-visible:ring-inset"
+        className="absolute inset-0 z-30 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50 focus-visible:ring-inset"
         aria-label={`Read evidence: ${item.title} - ${item.sourceType}, published ${formatDate(item.publicationDate)}`}
         tabIndex={0}
       >
